@@ -1,0 +1,1 @@
+DROP table shop_users
