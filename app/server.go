@@ -40,7 +40,6 @@ func main() {
 		Resolvers: &graph.Resolver{
 			Srv: service,
 		},
-		Directives: graph.Directive,
 	}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))

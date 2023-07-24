@@ -8,9 +8,24 @@ interface Node {
   id: ID!
 }
 
+type User implements Node{
+  id: ID!
+  name: String!
+  email: String!
+}
+
 type Query {
+  user(
+    name: String!
+  ): User
+}
+
+input UserCreateInput{
+  name: String!
+  email: String!
 }
 
 
 type Mutation {
+  CreateUser(data: UserCreateInput!): User!
 }
