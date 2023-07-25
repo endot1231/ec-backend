@@ -1,1 +1,0 @@
-DROP table order_details

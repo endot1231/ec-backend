@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/endot1231/ec-backend/graph/model"
-	"github.com/volatiletech/sqlboiler/v4/boil"
 )
 
 //go:generate mockgen -source=$GOFILE -package=$GOPACKAGE -destination=../../mock/$GOPACKAGE/service_mock.go
@@ -21,8 +20,8 @@ type services struct {
 	*userService
 }
 
-func New(exec boil.ContextExecutor) Services {
+func New() Services {
 	return &services{
-		userService: &userService{exec: exec},
+		userService: &userService{},
 	}
 }
