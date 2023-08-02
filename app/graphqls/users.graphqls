@@ -1,23 +1,15 @@
-directive @isAuthenticated on FIELD_DEFINITION
-
-scalar DateTime
-
-scalar URI
-
-interface Node {
-  id: ID!
-}
-
 type User implements Node{
   id: ID!
   name: String!
   email: String!
 }
 
-type Query {
+extend type Query {
   user(
-    name: String!
+    name: String
+    age: Int
   ): User
+  users:[User]
 }
 
 input UserCreateInput{
@@ -26,6 +18,6 @@ input UserCreateInput{
 }
 
 
-type Mutation {
+extend type Mutation {
   CreateUser(data: UserCreateInput!): User!
 }

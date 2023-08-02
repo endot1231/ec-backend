@@ -1,0 +1,13 @@
+directive @isAuthenticated on FIELD_DEFINITION
+
+scalar DateTime
+
+scalar URI
+
+interface Node {
+  id: ID!
+}
+
+type Query
+
+type Mutation
