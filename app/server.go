@@ -1,21 +1,22 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
+	"context"
 	"log"
 	"net/http"
 	"os"
 
-	"github.com/endot1231/ec-backend/graph"
+	_ "github.com/mattn/go-sqlite3"
+
+	"github.com/endot1231/ec-backend/graph/resolvers"
 	"github.com/endot1231/ec-backend/graph/services"
 	"github.com/endot1231/ec-backend/internal"
 	"github.com/endot1231/ec-backend/middlewares/auth"
 
+	"github.com/endot1231/ec-backend/ent"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 const (
@@ -24,20 +25,25 @@ const (
 )
 
 func main() {
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	db, err := sql.Open("sqlite3", fmt.Sprintf("%s?_foreign_keys=on", dbFile))
+	client, err := ent.Open("sqlite3", "file:./database.db?_fk=1")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed opening connection to sqlite: %v", err)
 	}
-	defer db.Close()
+	defer client.Close()
+	// Run the auto migration tool.
+	if err := client.Schema.Create(context.Background()); err != nil {
+		log.Fatalf("failed creating schema resources: %v", err)
+	}
 
-	service := services.New(db)
+	service := services.New(*client)
 	srv := handler.NewDefaultServer(internal.NewExecutableSchema(internal.Config{
-		Resolvers: &graph.Resolver{
+		Resolvers: &resolvers.Resolver{
 			Srv: service,
 		},
 	}))

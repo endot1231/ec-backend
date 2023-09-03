@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 
+	"github.com/endot1231/ec-backend/ent"
 	"github.com/endot1231/ec-backend/graph/model"
 )
 
@@ -12,16 +13,18 @@ type Services interface {
 }
 
 type UserService interface {
-	GetUserByName(ctx context.Context, name string) (*model.User, error)
-	CreateUser(ctx context.Context, name string, email string) (*model.User, error)
+	GetUsers(ctx context.Context) ([]*model.User, error)
+	GetUserByName(ctx context.Context, name string) ([]*model.User, error)
+	GetUserByAge(ctx context.Context, age int) (*model.User, error)
+	CreateUser(ctx context.Context, name string, email string, password string) (*model.User, error)
 }
 
 type services struct {
-	*userService
+	userService
 }
 
-func New() Services {
+func New(exec ent.Client) Services {
 	return &services{
-		userService: &userService{},
+		userService: userService{exec: exec},
 	}
 }
