@@ -1,7 +1,7 @@
+```mermaid
 erDiagram
-	
     shops ||--|{ shop_users : ""
-	shops ||--|{ products : ""
+    shops ||--|{ products : ""
     shops ||--|{ orders : ""
     products ||--|{ product_stocks : ""
     products||--|{ reviews : ""
@@ -26,6 +26,7 @@ erDiagram
 
     users {
 	  bigint id PK
+	  bigint shop_id FK
 	  varchar255 name
 	  varchar255 email
 	  timestamp email_verified_at
@@ -178,4 +179,4 @@ erDiagram
       timestamp created_at
       timestamp updated_at
     }
-	
+```
