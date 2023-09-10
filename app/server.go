@@ -8,6 +8,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 
+	"github.com/endot1231/ec-backend/configs"
 	"github.com/endot1231/ec-backend/graph/resolvers"
 	"github.com/endot1231/ec-backend/graph/services"
 	"github.com/endot1231/ec-backend/internal"
@@ -25,6 +26,8 @@ const (
 )
 
 func main() {
+
+	configs.Init()
 
 	port := os.Getenv("PORT")
 	if port == "" {
