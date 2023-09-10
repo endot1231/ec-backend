@@ -1,5 +1,20 @@
+type AuthPayload {
+  token: String
+}
+
 type User implements Node{
   id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UserLoginInput{
+  email: String!
+  password: String!
+}
+
+input UserCreateInput{
   name: String!
   email: String!
   password: String!
@@ -13,13 +28,7 @@ extend type Query {
   users:[User]
 }
 
-input UserCreateInput{
-  name: String!
-  email: String!
-  password: String!
-}
-
-
 extend type Mutation {
+  Login(data: UserLoginInput!): AuthPayload!
   CreateUser(data: UserCreateInput!): User!
 }
