@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/endot1231/ec-backend/confings"
+	"github.com/endot1231/ec-backend/configs"
 	"github.com/endot1231/ec-backend/ent"
 	"github.com/endot1231/ec-backend/ent/users"
 	"github.com/golang-jwt/jwt/v5"
@@ -43,7 +43,7 @@ func (u *authService) Login(ctx context.Context, role string, email string, pass
 		"ID":        user.ID,
 	}
 
-	mySigningKey := []byte(confings.Get().JwtSecret)
+	mySigningKey := []byte(configs.Get().JwtSecret)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(mySigningKey)
 	if err != nil {
