@@ -11,6 +11,15 @@ import (
 	"github.com/endot1231/ec-backend/graph/model"
 )
 
+// Login is the resolver for the Login field.
+func (r *mutationResolver) Login(ctx context.Context, data model.UserLoginInput) (*model.AuthPayload, error) {
+	token, err := r.Srv.Login(ctx, "user", data.Email, data.Password)
+	if err != nil {
+		panic(err)
+	}
+	return &model.AuthPayload{Token: &token}, nil
+}
+
 // CreateUser is the resolver for the CreateUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, data model.UserCreateInput) (*model.User, error) {
 	user, err := r.Srv.CreateUser(ctx, data.Name, data.Email, data.Password)

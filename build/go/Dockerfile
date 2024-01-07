@@ -15,6 +15,8 @@ RUN go install github.com/99designs/gqlgen@latest && \
 ENV GOOS linux
 ENV GOARCH amd64
 
+ENV JwtSecret="123456789"
+
 EXPOSE 8080
 
 CMD go mod tidy && air

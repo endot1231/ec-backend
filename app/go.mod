@@ -5,9 +5,11 @@ go 1.20
 require (
 	entgo.io/ent v0.12.3
 	github.com/99designs/gqlgen v0.17.35
+	github.com/caarlos0/env v3.5.0+incompatible
+	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/vektah/gqlparser/v2 v2.5.7
-	gorm.io/gorm v1.25.2
+	golang.org/x/crypto v0.0.0-20220517005047-85d78b3ac167
 )
 
 require (
@@ -21,8 +23,6 @@ require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.3 // indirect
 	github.com/hashicorp/hcl/v2 v2.13.0 // indirect
-	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
