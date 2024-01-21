@@ -1585,7 +1585,8 @@ func (c *UsersClient) QueryReviews(u *Users) *ReviewsQuery {
 
 // Hooks returns the client hooks.
 func (c *UsersClient) Hooks() []Hook {
-	return c.hooks.Users
+	hooks := c.hooks.Users
+	return append(hooks[:len(hooks):len(hooks)], users.Hooks[:]...)
 }
 
 // Interceptors returns the client interceptors.
