@@ -14,9 +14,7 @@ type Services interface {
 }
 
 type UserService interface {
-	GetUsers(ctx context.Context) ([]*model.User, error)
-	GetUserByName(ctx context.Context, name string) ([]*model.User, error)
-	GetUserByAge(ctx context.Context, age int) (*model.User, error)
+	GetUsers(ctx context.Context, name string, email string) ([]*model.User, error)
 	CreateUser(ctx context.Context, name string, email string, password string) (*model.User, error)
 }
 

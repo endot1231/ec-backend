@@ -16,9 +16,9 @@ type userService struct {
 
 func convertUser(user *ent.Users) *model.User {
 	return &model.User{
-		ID:       strconv.Itoa(user.ID),
-		Name:     user.Name,
-		Password: user.Password,
+		ID:    strconv.Itoa(user.ID),
+		Name:  user.Name,
+		Email: user.Email,
 	}
 }
 
@@ -30,32 +30,23 @@ func convertUsers(users []*ent.Users) []*model.User {
 	return userArray
 }
 
-func (u *userService) GetUsers(ctx context.Context) ([]*model.User, error) {
-	users, err := u.exec.Users.Query().All(ctx)
+func (u *userService) GetUsers(ctx context.Context, name string, email string) ([]*model.User, error) {
+	query := u.exec.Users.Query()
+
+	if name != "" {
+		query = query.Where(users.NameEQ(name))
+	}
+
+	if email != "" {
+		query = query.Where(users.EmailEQ(email))
+	}
+
+	users, err := query.All(ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return convertUsers(users), nil
-}
-
-func (u *userService) GetUserByName(ctx context.Context, name string) ([]*model.User, error) {
-	users, err := u.exec.Users.Query().Where(users.Name(name)).All(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return convertUsers(users), nil
-}
-
-func (u *userService) GetUserByAge(ctx context.Context, age int) (*model.User, error) {
-	user, err := u.exec.Users.Query().Where(users.Name("age")).First(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return convertUser(user), nil
 }
 
 func (u *userService) CreateUser(ctx context.Context, name string, email string, password string) (*model.User, error) {
