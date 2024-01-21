@@ -11,10 +11,27 @@ services:
     env_file:
       - ./app/.env
     networks:
-      - golang_test_network
+      - go_ec
     ports:
       - '8080:8080'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.2.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo  #time-zoneの指定. 日本時間(東京)に設定 
+    volumes:
+      - db-volume:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    networks:
+      - go_ec
 
 networks:
-  golang_test_network:
+  go_ec:
     external: true
+volumes:
+  db-volume:

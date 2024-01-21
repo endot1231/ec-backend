@@ -24,7 +24,7 @@ type Users struct {
 	// EmailVerified holds the value of the "email_verified" field.
 	EmailVerified *time.Time `json:"email_verified,omitempty"`
 	// Password holds the value of the "password" field.
-	Password string `json:"password,omitempty"`
+	Password string `json:"-"`
 	// RememberToken holds the value of the "remember_token" field.
 	RememberToken string `json:"remember_token,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -191,8 +191,7 @@ func (u *Users) String() string {
 		builder.WriteString(v.Format(time.ANSIC))
 	}
 	builder.WriteString(", ")
-	builder.WriteString("password=")
-	builder.WriteString(u.Password)
+	builder.WriteString("password=<sensitive>")
 	builder.WriteString(", ")
 	builder.WriteString("remember_token=")
 	builder.WriteString(u.RememberToken)

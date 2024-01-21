@@ -53,6 +53,14 @@ func (uc *UsersCreate) SetPassword(s string) *UsersCreate {
 	return uc
 }
 
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uc *UsersCreate) SetNillablePassword(s *string) *UsersCreate {
+	if s != nil {
+		uc.SetPassword(*s)
+	}
+	return uc
+}
+
 // SetRememberToken sets the "remember_token" field.
 func (uc *UsersCreate) SetRememberToken(s string) *UsersCreate {
 	uc.mutation.SetRememberToken(s)
@@ -131,7 +139,9 @@ func (uc *UsersCreate) Mutation() *UsersMutation {
 
 // Save creates the Users in the database.
 func (uc *UsersCreate) Save(ctx context.Context) (*Users, error) {
-	uc.defaults()
+	if err := uc.defaults(); err != nil {
+		return nil, err
+	}
 	return withHooks(ctx, uc.sqlSave, uc.mutation, uc.hooks)
 }
 
@@ -158,7 +168,7 @@ func (uc *UsersCreate) ExecX(ctx context.Context) {
 }
 
 // defaults sets the default values of the builder before save.
-func (uc *UsersCreate) defaults() {
+func (uc *UsersCreate) defaults() error {
 	if _, ok := uc.mutation.EmailVerified(); !ok {
 		v := users.DefaultEmailVerified
 		uc.mutation.SetEmailVerified(v)
@@ -175,6 +185,7 @@ func (uc *UsersCreate) defaults() {
 		v := users.DefaultDeletedAt
 		uc.mutation.SetDeletedAt(v)
 	}
+	return nil
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -184,9 +195,6 @@ func (uc *UsersCreate) check() error {
 	}
 	if _, ok := uc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "Users.email"`)}
-	}
-	if _, ok := uc.mutation.Password(); !ok {
-		return &ValidationError{Name: "password", err: errors.New(`ent: missing required field "Users.password"`)}
 	}
 	if _, ok := uc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Users.created_at"`)}

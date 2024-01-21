@@ -6,36 +6,38 @@ import (
 	"net/http"
 	"os"
 
-	_ "github.com/mattn/go-sqlite3"
-
+	"github.com/endot1231/ec-backend/configs"
+	"github.com/endot1231/ec-backend/database"
 	"github.com/endot1231/ec-backend/graph/resolvers"
 	"github.com/endot1231/ec-backend/graph/services"
 	"github.com/endot1231/ec-backend/internal"
 	"github.com/endot1231/ec-backend/middlewares/auth"
 
-	"github.com/endot1231/ec-backend/ent"
+	_ "github.com/endot1231/ec-backend/ent/runtime"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const (
 	defaultPort = "8080"
-	dbFile      = "./db/database.db"
 )
 
 func main() {
-
+	configs.Init()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	client, err := ent.Open("sqlite3", "file:./database.db?_fk=1")
+	client, err := database.NewClient()
 	if err != nil {
-		log.Fatalf("failed opening connection to sqlite: %v", err)
+		log.Fatal(err)
 	}
 	defer client.Close()
+
 	// Run the auto migration tool.
 	if err := client.Schema.Create(context.Background()); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
