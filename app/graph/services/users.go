@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"strconv"
 
@@ -17,8 +16,9 @@ type userService struct {
 
 func convertUser(user *ent.Users) *model.User {
 	return &model.User{
-		ID:   strconv.Itoa(user.ID),
-		Name: user.Name,
+		ID:       strconv.Itoa(user.ID),
+		Name:     user.Name,
+		Password: user.Password,
 	}
 }
 
@@ -32,9 +32,7 @@ func convertUsers(users []*ent.Users) []*model.User {
 
 func (u *userService) GetUsers(ctx context.Context) ([]*model.User, error) {
 	users, err := u.exec.Users.Query().All(ctx)
-	fmt.Println(users)
 	if err != nil {
-		fmt.Println("stdout")
 		return nil, err
 	}
 
@@ -43,10 +41,7 @@ func (u *userService) GetUsers(ctx context.Context) ([]*model.User, error) {
 
 func (u *userService) GetUserByName(ctx context.Context, name string) ([]*model.User, error) {
 	users, err := u.exec.Users.Query().Where(users.Name(name)).All(ctx)
-	fmt.Println(users)
 	if err != nil {
-		fmt.Println("stdout")
-		fmt.Println(err)
 		return nil, err
 	}
 
@@ -57,8 +52,6 @@ func (u *userService) GetUserByAge(ctx context.Context, age int) (*model.User, e
 	user, err := u.exec.Users.Query().Where(users.Name("age")).First(ctx)
 
 	if err != nil {
-		fmt.Println("stdout")
-		fmt.Println(err)
 		return nil, err
 	}
 
@@ -74,9 +67,9 @@ func (u *userService) CreateUser(ctx context.Context, name string, email string,
 		Save(ctx)
 
 	if err != nil {
-		log.Fatalf("failed create company: %v", err)
+		log.Fatalf("failed create user: %v", err)
 		return nil, err
 	}
-	// 3. 戻り値の*model.User型を作る
+
 	return convertUser(user), nil
 }
