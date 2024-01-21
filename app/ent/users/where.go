@@ -330,6 +330,16 @@ func PasswordHasSuffix(v string) predicate.Users {
 	return predicate.Users(sql.FieldHasSuffix(FieldPassword, v))
 }
 
+// PasswordIsNil applies the IsNil predicate on the "password" field.
+func PasswordIsNil() predicate.Users {
+	return predicate.Users(sql.FieldIsNull(FieldPassword))
+}
+
+// PasswordNotNil applies the NotNil predicate on the "password" field.
+func PasswordNotNil() predicate.Users {
+	return predicate.Users(sql.FieldNotNull(FieldPassword))
+}
+
 // PasswordEqualFold applies the EqualFold predicate on the "password" field.
 func PasswordEqualFold(v string) predicate.Users {
 	return predicate.Users(sql.FieldEqualFold(FieldPassword, v))

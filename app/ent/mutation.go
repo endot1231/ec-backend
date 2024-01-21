@@ -6073,9 +6073,22 @@ func (m *UsersMutation) OldPassword(ctx context.Context) (v string, err error) {
 	return oldValue.Password, nil
 }
 
+// ClearPassword clears the value of the "password" field.
+func (m *UsersMutation) ClearPassword() {
+	m.password = nil
+	m.clearedFields[users.FieldPassword] = struct{}{}
+}
+
+// PasswordCleared returns if the "password" field was cleared in this mutation.
+func (m *UsersMutation) PasswordCleared() bool {
+	_, ok := m.clearedFields[users.FieldPassword]
+	return ok
+}
+
 // ResetPassword resets all changes to the "password" field.
 func (m *UsersMutation) ResetPassword() {
 	m.password = nil
+	delete(m.clearedFields, users.FieldPassword)
 }
 
 // SetRememberToken sets the "remember_token" field.
@@ -6508,6 +6521,9 @@ func (m *UsersMutation) ClearedFields() []string {
 	if m.FieldCleared(users.FieldEmailVerified) {
 		fields = append(fields, users.FieldEmailVerified)
 	}
+	if m.FieldCleared(users.FieldPassword) {
+		fields = append(fields, users.FieldPassword)
+	}
 	if m.FieldCleared(users.FieldRememberToken) {
 		fields = append(fields, users.FieldRememberToken)
 	}
@@ -6530,6 +6546,9 @@ func (m *UsersMutation) ClearField(name string) error {
 	switch name {
 	case users.FieldEmailVerified:
 		m.ClearEmailVerified()
+		return nil
+	case users.FieldPassword:
+		m.ClearPassword()
 		return nil
 	case users.FieldRememberToken:
 		m.ClearRememberToken()

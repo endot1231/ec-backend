@@ -7,6 +7,10 @@ type Node interface {
 	GetID() string
 }
 
+type AuthPayload struct {
+	Token *string `json:"token,omitempty"`
+}
+
 type User struct {
 	ID       string `json:"id"`
 	Name     string `json:"name"`
@@ -19,6 +23,11 @@ func (this User) GetID() string { return this.ID }
 
 type UserCreateInput struct {
 	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type UserLoginInput struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }

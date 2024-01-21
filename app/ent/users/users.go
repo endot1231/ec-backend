@@ -5,6 +5,7 @@ package users
 import (
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 )
@@ -70,7 +71,13 @@ func ValidColumn(column string) bool {
 	return false
 }
 
+// Note that the variables below are initialized by the runtime
+// package on the initialization of the application. Therefore,
+// it should be imported in the main as follows:
+//
+//	import _ "github.com/endot1231/ec-backend/ent/runtime"
 var (
+	Hooks [1]ent.Hook
 	// DefaultEmailVerified holds the default value on creation for the "email_verified" field.
 	DefaultEmailVerified time.Time
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.

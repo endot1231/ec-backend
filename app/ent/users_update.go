@@ -67,6 +67,20 @@ func (uu *UsersUpdate) SetPassword(s string) *UsersUpdate {
 	return uu
 }
 
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uu *UsersUpdate) SetNillablePassword(s *string) *UsersUpdate {
+	if s != nil {
+		uu.SetPassword(*s)
+	}
+	return uu
+}
+
+// ClearPassword clears the value of the "password" field.
+func (uu *UsersUpdate) ClearPassword() *UsersUpdate {
+	uu.mutation.ClearPassword()
+	return uu
+}
+
 // SetRememberToken sets the "remember_token" field.
 func (uu *UsersUpdate) SetRememberToken(s string) *UsersUpdate {
 	uu.mutation.SetRememberToken(s)
@@ -227,6 +241,9 @@ func (uu *UsersUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.Password(); ok {
 		_spec.SetField(users.FieldPassword, field.TypeString, value)
 	}
+	if uu.mutation.PasswordCleared() {
+		_spec.ClearField(users.FieldPassword, field.TypeString)
+	}
 	if value, ok := uu.mutation.RememberToken(); ok {
 		_spec.SetField(users.FieldRememberToken, field.TypeString, value)
 	}
@@ -345,6 +362,20 @@ func (uuo *UsersUpdateOne) ClearEmailVerified() *UsersUpdateOne {
 // SetPassword sets the "password" field.
 func (uuo *UsersUpdateOne) SetPassword(s string) *UsersUpdateOne {
 	uuo.mutation.SetPassword(s)
+	return uuo
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uuo *UsersUpdateOne) SetNillablePassword(s *string) *UsersUpdateOne {
+	if s != nil {
+		uuo.SetPassword(*s)
+	}
+	return uuo
+}
+
+// ClearPassword clears the value of the "password" field.
+func (uuo *UsersUpdateOne) ClearPassword() *UsersUpdateOne {
+	uuo.mutation.ClearPassword()
 	return uuo
 }
 
@@ -537,6 +568,9 @@ func (uuo *UsersUpdateOne) sqlSave(ctx context.Context) (_node *Users, err error
 	}
 	if value, ok := uuo.mutation.Password(); ok {
 		_spec.SetField(users.FieldPassword, field.TypeString, value)
+	}
+	if uuo.mutation.PasswordCleared() {
+		_spec.ClearField(users.FieldPassword, field.TypeString)
 	}
 	if value, ok := uuo.mutation.RememberToken(); ok {
 		_spec.SetField(users.FieldRememberToken, field.TypeString, value)
