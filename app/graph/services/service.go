@@ -3,11 +3,11 @@ package services
 import (
 	"context"
 
+	"github.com/endot1231/ec-backend/clock"
 	"github.com/endot1231/ec-backend/ent"
 	"github.com/endot1231/ec-backend/graph/model"
 )
 
-//go:generate mockgen -source=$GOFILE -package=$GOPACKAGE -destination=../../mock/$GOPACKAGE/service_mock.go
 type Services interface {
 	UserService
 	AuthService
@@ -32,6 +32,6 @@ type services struct {
 func New(exec ent.Client) Services {
 	return &services{
 		userService: userService{exec: exec},
-		authService: authService{exec: exec},
+		authService: authService{exec: exec, Clocker: clock.RealClocker{}},
 	}
 }
