@@ -12,10 +12,9 @@ type AuthPayload struct {
 }
 
 type User struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func (User) IsNode()            {}
@@ -30,4 +29,9 @@ type UserCreateInput struct {
 type UserLoginInput struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+}
+
+type UserSearchInput struct {
+	Name  *string `json:"name,omitempty"`
+	Email *string `json:"email,omitempty"`
 }

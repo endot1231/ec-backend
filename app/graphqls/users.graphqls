@@ -6,7 +6,6 @@ type User implements Node{
   id: ID!
   name: String!
   email: String!
-  password: String!
 }
 
 input UserLoginInput{
@@ -20,12 +19,13 @@ input UserCreateInput{
   password: String!
 }
 
+input UserSearchInput{
+  name: String
+  email: String
+}
+
 extend type Query {
-  user(
-    name: String
-    age: Int
-  ): User
-  users:[User]
+  users(input: UserSearchInput = {name: "", email: ""}):[User]
 }
 
 extend type Mutation {
