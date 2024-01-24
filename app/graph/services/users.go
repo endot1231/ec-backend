@@ -34,11 +34,11 @@ func (u *userService) GetUsers(ctx context.Context, name string, email string) (
 	query := u.exec.Users.Query()
 
 	if name != "" {
-		query = query.Where(users.NameEQ(name))
+		query = query.Where(users.NameHasPrefix(name))
 	}
 
 	if email != "" {
-		query = query.Where(users.EmailEQ(email))
+		query = query.Where(users.EmailHasPrefix(email))
 	}
 
 	users, err := query.All(ctx)
