@@ -1,0 +1,14 @@
+type Shop implements Node{
+  id: ID!
+  name: String!
+  address: String!
+}
+
+input ShopsSearchInput{
+  name: String
+  address: String
+}
+
+extend type Query {
+  shops(input: ShopsSearchInput = {name: "", address: ""}):[Shop]
+}
