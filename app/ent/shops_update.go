@@ -34,55 +34,9 @@ func (su *ShopsUpdate) SetName(s string) *ShopsUpdate {
 	return su
 }
 
-// SetEmail sets the "email" field.
-func (su *ShopsUpdate) SetEmail(s string) *ShopsUpdate {
-	su.mutation.SetEmail(s)
-	return su
-}
-
-// SetEmailVerified sets the "email_verified" field.
-func (su *ShopsUpdate) SetEmailVerified(t time.Time) *ShopsUpdate {
-	su.mutation.SetEmailVerified(t)
-	return su
-}
-
-// SetNillableEmailVerified sets the "email_verified" field if the given value is not nil.
-func (su *ShopsUpdate) SetNillableEmailVerified(t *time.Time) *ShopsUpdate {
-	if t != nil {
-		su.SetEmailVerified(*t)
-	}
-	return su
-}
-
-// ClearEmailVerified clears the value of the "email_verified" field.
-func (su *ShopsUpdate) ClearEmailVerified() *ShopsUpdate {
-	su.mutation.ClearEmailVerified()
-	return su
-}
-
-// SetPassword sets the "password" field.
-func (su *ShopsUpdate) SetPassword(s string) *ShopsUpdate {
-	su.mutation.SetPassword(s)
-	return su
-}
-
-// SetRememberToken sets the "remember_token" field.
-func (su *ShopsUpdate) SetRememberToken(s string) *ShopsUpdate {
-	su.mutation.SetRememberToken(s)
-	return su
-}
-
-// SetNillableRememberToken sets the "remember_token" field if the given value is not nil.
-func (su *ShopsUpdate) SetNillableRememberToken(s *string) *ShopsUpdate {
-	if s != nil {
-		su.SetRememberToken(*s)
-	}
-	return su
-}
-
-// ClearRememberToken clears the value of the "remember_token" field.
-func (su *ShopsUpdate) ClearRememberToken() *ShopsUpdate {
-	su.mutation.ClearRememberToken()
+// SetAddress sets the "address" field.
+func (su *ShopsUpdate) SetAddress(s string) *ShopsUpdate {
+	su.mutation.SetAddress(s)
 	return su
 }
 
@@ -178,23 +132,8 @@ func (su *ShopsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := su.mutation.Name(); ok {
 		_spec.SetField(shops.FieldName, field.TypeString, value)
 	}
-	if value, ok := su.mutation.Email(); ok {
-		_spec.SetField(shops.FieldEmail, field.TypeString, value)
-	}
-	if value, ok := su.mutation.EmailVerified(); ok {
-		_spec.SetField(shops.FieldEmailVerified, field.TypeTime, value)
-	}
-	if su.mutation.EmailVerifiedCleared() {
-		_spec.ClearField(shops.FieldEmailVerified, field.TypeTime)
-	}
-	if value, ok := su.mutation.Password(); ok {
-		_spec.SetField(shops.FieldPassword, field.TypeString, value)
-	}
-	if value, ok := su.mutation.RememberToken(); ok {
-		_spec.SetField(shops.FieldRememberToken, field.TypeString, value)
-	}
-	if su.mutation.RememberTokenCleared() {
-		_spec.ClearField(shops.FieldRememberToken, field.TypeString)
+	if value, ok := su.mutation.Address(); ok {
+		_spec.SetField(shops.FieldAddress, field.TypeString, value)
 	}
 	if value, ok := su.mutation.CreatedAt(); ok {
 		_spec.SetField(shops.FieldCreatedAt, field.TypeTime, value)
@@ -234,55 +173,9 @@ func (suo *ShopsUpdateOne) SetName(s string) *ShopsUpdateOne {
 	return suo
 }
 
-// SetEmail sets the "email" field.
-func (suo *ShopsUpdateOne) SetEmail(s string) *ShopsUpdateOne {
-	suo.mutation.SetEmail(s)
-	return suo
-}
-
-// SetEmailVerified sets the "email_verified" field.
-func (suo *ShopsUpdateOne) SetEmailVerified(t time.Time) *ShopsUpdateOne {
-	suo.mutation.SetEmailVerified(t)
-	return suo
-}
-
-// SetNillableEmailVerified sets the "email_verified" field if the given value is not nil.
-func (suo *ShopsUpdateOne) SetNillableEmailVerified(t *time.Time) *ShopsUpdateOne {
-	if t != nil {
-		suo.SetEmailVerified(*t)
-	}
-	return suo
-}
-
-// ClearEmailVerified clears the value of the "email_verified" field.
-func (suo *ShopsUpdateOne) ClearEmailVerified() *ShopsUpdateOne {
-	suo.mutation.ClearEmailVerified()
-	return suo
-}
-
-// SetPassword sets the "password" field.
-func (suo *ShopsUpdateOne) SetPassword(s string) *ShopsUpdateOne {
-	suo.mutation.SetPassword(s)
-	return suo
-}
-
-// SetRememberToken sets the "remember_token" field.
-func (suo *ShopsUpdateOne) SetRememberToken(s string) *ShopsUpdateOne {
-	suo.mutation.SetRememberToken(s)
-	return suo
-}
-
-// SetNillableRememberToken sets the "remember_token" field if the given value is not nil.
-func (suo *ShopsUpdateOne) SetNillableRememberToken(s *string) *ShopsUpdateOne {
-	if s != nil {
-		suo.SetRememberToken(*s)
-	}
-	return suo
-}
-
-// ClearRememberToken clears the value of the "remember_token" field.
-func (suo *ShopsUpdateOne) ClearRememberToken() *ShopsUpdateOne {
-	suo.mutation.ClearRememberToken()
+// SetAddress sets the "address" field.
+func (suo *ShopsUpdateOne) SetAddress(s string) *ShopsUpdateOne {
+	suo.mutation.SetAddress(s)
 	return suo
 }
 
@@ -408,23 +301,8 @@ func (suo *ShopsUpdateOne) sqlSave(ctx context.Context) (_node *Shops, err error
 	if value, ok := suo.mutation.Name(); ok {
 		_spec.SetField(shops.FieldName, field.TypeString, value)
 	}
-	if value, ok := suo.mutation.Email(); ok {
-		_spec.SetField(shops.FieldEmail, field.TypeString, value)
-	}
-	if value, ok := suo.mutation.EmailVerified(); ok {
-		_spec.SetField(shops.FieldEmailVerified, field.TypeTime, value)
-	}
-	if suo.mutation.EmailVerifiedCleared() {
-		_spec.ClearField(shops.FieldEmailVerified, field.TypeTime)
-	}
-	if value, ok := suo.mutation.Password(); ok {
-		_spec.SetField(shops.FieldPassword, field.TypeString, value)
-	}
-	if value, ok := suo.mutation.RememberToken(); ok {
-		_spec.SetField(shops.FieldRememberToken, field.TypeString, value)
-	}
-	if suo.mutation.RememberTokenCleared() {
-		_spec.ClearField(shops.FieldRememberToken, field.TypeString)
+	if value, ok := suo.mutation.Address(); ok {
+		_spec.SetField(shops.FieldAddress, field.TypeString, value)
 	}
 	if value, ok := suo.mutation.CreatedAt(); ok {
 		_spec.SetField(shops.FieldCreatedAt, field.TypeTime, value)

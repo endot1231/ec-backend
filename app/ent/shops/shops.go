@@ -15,14 +15,8 @@ const (
 	FieldID = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
-	// FieldEmail holds the string denoting the email field in the database.
-	FieldEmail = "email"
-	// FieldEmailVerified holds the string denoting the email_verified field in the database.
-	FieldEmailVerified = "email_verified"
-	// FieldPassword holds the string denoting the password field in the database.
-	FieldPassword = "password"
-	// FieldRememberToken holds the string denoting the remember_token field in the database.
-	FieldRememberToken = "remember_token"
+	// FieldAddress holds the string denoting the address field in the database.
+	FieldAddress = "address"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -37,10 +31,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldName,
-	FieldEmail,
-	FieldEmailVerified,
-	FieldPassword,
-	FieldRememberToken,
+	FieldAddress,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldDeletedAt,
@@ -57,8 +48,6 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultEmailVerified holds the default value on creation for the "email_verified" field.
-	DefaultEmailVerified time.Time
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt time.Time
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
@@ -80,24 +69,9 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
-// ByEmail orders the results by the email field.
-func ByEmail(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldEmail, opts...).ToFunc()
-}
-
-// ByEmailVerified orders the results by the email_verified field.
-func ByEmailVerified(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldEmailVerified, opts...).ToFunc()
-}
-
-// ByPassword orders the results by the password field.
-func ByPassword(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldPassword, opts...).ToFunc()
-}
-
-// ByRememberToken orders the results by the remember_token field.
-func ByRememberToken(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldRememberToken, opts...).ToFunc()
+// ByAddress orders the results by the address field.
+func ByAddress(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAddress, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

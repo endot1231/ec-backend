@@ -7,26 +7,23 @@ import (
 	"entgo.io/ent/schema/field"
 )
 
-// User holds the schema definition for the User entity.
+// Shops holds the schema definition for the User entity.
 type Shops struct {
 	ent.Schema
 }
 
-// Fields of the User.
+// Fields of the Shops.
 func (Shops) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name"),
-		field.String("email"),
-		field.Time("email_verified").Default(time.Now()).Optional().Nillable(),
-		field.String("password"),
-		field.String("remember_token").Optional(),
+		field.String("name").Nillable(),
+		field.String("address").Nillable(),
 		field.Time("created_at").Default(time.Now()),
 		field.Time("updated_at").Default(time.Now()),
 		field.Time("deleted_at").Default(time.Now()).Optional().Nillable(),
 	}
 }
 
-// Edges of the User.
+// Edges of the Shops.
 func (Shops) Edges() []ent.Edge {
 	return []ent.Edge{}
 }

@@ -144,20 +144,16 @@ func init() {
 	reviews.DefaultDeletedAt = reviewsDescDeletedAt.Default.(time.Time)
 	shopsFields := schema.Shops{}.Fields()
 	_ = shopsFields
-	// shopsDescEmailVerified is the schema descriptor for email_verified field.
-	shopsDescEmailVerified := shopsFields[2].Descriptor()
-	// shops.DefaultEmailVerified holds the default value on creation for the email_verified field.
-	shops.DefaultEmailVerified = shopsDescEmailVerified.Default.(time.Time)
 	// shopsDescCreatedAt is the schema descriptor for created_at field.
-	shopsDescCreatedAt := shopsFields[5].Descriptor()
+	shopsDescCreatedAt := shopsFields[2].Descriptor()
 	// shops.DefaultCreatedAt holds the default value on creation for the created_at field.
 	shops.DefaultCreatedAt = shopsDescCreatedAt.Default.(time.Time)
 	// shopsDescUpdatedAt is the schema descriptor for updated_at field.
-	shopsDescUpdatedAt := shopsFields[6].Descriptor()
+	shopsDescUpdatedAt := shopsFields[3].Descriptor()
 	// shops.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	shops.DefaultUpdatedAt = shopsDescUpdatedAt.Default.(time.Time)
 	// shopsDescDeletedAt is the schema descriptor for deleted_at field.
-	shopsDescDeletedAt := shopsFields[7].Descriptor()
+	shopsDescDeletedAt := shopsFields[4].Descriptor()
 	// shops.DefaultDeletedAt holds the default value on creation for the deleted_at field.
 	shops.DefaultDeletedAt = shopsDescDeletedAt.Default.(time.Time)
 	usersHooks := schema.Users{}.Hooks()
