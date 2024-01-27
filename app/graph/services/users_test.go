@@ -208,7 +208,6 @@ func (s *TestUsersStruct) Test_userService_GetUsers() {
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				print(got)
 				t.Errorf("userService.GetUsers() = %v, want %v", got, tt.want)
 			}
 		})
@@ -216,6 +215,9 @@ func (s *TestUsersStruct) Test_userService_GetUsers() {
 }
 
 func (s *TestUsersStruct) Test_userService_CreateUser() {
+	ctx := context.Background()
+	user := &model.User{Name: "name", Email: "email@email.com"}
+
 	type fields struct {
 		exec ent.Client
 	}
@@ -231,7 +233,43 @@ func (s *TestUsersStruct) Test_userService_CreateUser() {
 		args    args
 		want    *model.User
 		wantErr bool
-	}{}
+	}{
+		{
+			name:    "input name and email",
+			fields:  fields{exec: *s.db},
+			args:    args{ctx: ctx, name: user.Name, email: user.Email, password: "password"},
+			want:    user,
+			wantErr: false,
+		},
+		{
+			name:    "name is blank",
+			fields:  fields{exec: *s.db},
+			args:    args{ctx: ctx, name: "", email: user.Email, password: "password"},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name:    "email is blank",
+			fields:  fields{exec: *s.db},
+			args:    args{ctx: ctx, name: user.Name, email: "", password: "password"},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name:    "email is not unique",
+			fields:  fields{exec: *s.db},
+			args:    args{ctx: ctx, name: user.Name, email: s.user_email, password: "password"},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name:    "password is blank",
+			fields:  fields{exec: *s.db},
+			args:    args{ctx: ctx, name: user.Name, email: s.user_email, password: ""},
+			want:    nil,
+			wantErr: true,
+		},
+	}
 	for _, tt := range tests {
 		s.T().Run(tt.name, func(t *testing.T) {
 			u := &userService{
@@ -242,8 +280,12 @@ func (s *TestUsersStruct) Test_userService_CreateUser() {
 				t.Errorf("userService.CreateUser() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("userService.CreateUser() = %v, want %v", got, tt.want)
+
+			if !tt.wantErr {
+				tt.want.ID = got.ID
+				if !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("userService.CreateUser() = %v, want %v", got, tt.want)
+				}
 			}
 		})
 	}
