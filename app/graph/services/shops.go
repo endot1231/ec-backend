@@ -6,6 +6,7 @@ import (
 
 	"github.com/endot1231/ec-backend/clock"
 	"github.com/endot1231/ec-backend/ent"
+	"github.com/endot1231/ec-backend/ent/shops"
 	"github.com/endot1231/ec-backend/graph/model"
 )
 
@@ -30,8 +31,22 @@ func convertShops(shops []*ent.Shops) []*model.Shop {
 	return shoprArray
 }
 
-func (u *userService) GetShops(ctx context.Context, name string, address string) ([]*model.Shop, error) {
-	var shoprArray []*model.Shop
+func (s *shopService) GetShops(ctx context.Context, name string, address string) ([]*model.Shop, error) {
 
-	return shoprArray, nil
+	query := s.exec.Shops.Query()
+
+	if name != "" {
+		query = query.Where(shops.NameHasPrefix(name))
+	}
+
+	if address != "" {
+		query = query.Where(shops.AddressHasPrefix(address))
+	}
+
+	shops, err := query.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return convertShops(shops), nil
 }
