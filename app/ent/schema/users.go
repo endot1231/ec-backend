@@ -23,8 +23,8 @@ type Users struct {
 // Fields of the User.
 func (Users) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name"),
-		field.String("email").Unique(),
+		field.String("name").NotEmpty(),
+		field.String("email").Unique().NotEmpty(),
 		field.Time("email_verified").Default(time.Now()).Optional().Nillable(),
 		field.String("password").Optional().Sensitive(),
 		field.String("remember_token").Optional(),

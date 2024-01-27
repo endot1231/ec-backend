@@ -78,6 +78,10 @@ func ValidColumn(column string) bool {
 //	import _ "github.com/endot1231/ec-backend/ent/runtime"
 var (
 	Hooks [1]ent.Hook
+	// NameValidator is a validator for the "name" field. It is called by the builders before save.
+	NameValidator func(string) error
+	// EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	EmailValidator func(string) error
 	// DefaultEmailVerified holds the default value on creation for the "email_verified" field.
 	DefaultEmailVerified time.Time
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
