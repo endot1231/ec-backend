@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"log"
 	"strconv"
 
 	"github.com/endot1231/ec-backend/ent"
@@ -58,7 +57,6 @@ func (u *userService) CreateUser(ctx context.Context, name string, email string,
 		Save(ctx)
 
 	if err != nil {
-		log.Fatalf("failed create user: %v", err)
 		return nil, err
 	}
 
