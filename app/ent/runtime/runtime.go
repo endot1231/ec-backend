@@ -164,6 +164,14 @@ func init() {
 	users.Hooks[0] = usersHooks[0]
 	usersFields := schema.Users{}.Fields()
 	_ = usersFields
+	// usersDescName is the schema descriptor for name field.
+	usersDescName := usersFields[0].Descriptor()
+	// users.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	users.NameValidator = usersDescName.Validators[0].(func(string) error)
+	// usersDescEmail is the schema descriptor for email field.
+	usersDescEmail := usersFields[1].Descriptor()
+	// users.EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	users.EmailValidator = usersDescEmail.Validators[0].(func(string) error)
 	// usersDescEmailVerified is the schema descriptor for email_verified field.
 	usersDescEmailVerified := usersFields[2].Descriptor()
 	// users.DefaultEmailVerified holds the default value on creation for the email_verified field.

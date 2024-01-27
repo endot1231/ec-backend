@@ -23,8 +23,8 @@ type Users struct {
 // Fields of the User.
 func (Users) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name"),
-		field.String("email"),
+		field.String("name").NotEmpty(),
+		field.String("email").Unique().NotEmpty(),
 		field.Time("email_verified").Default(time.Now()).Optional().Nillable(),
 		field.String("password").Optional().Sensitive(),
 		field.String("remember_token").Optional(),
@@ -32,6 +32,10 @@ func (Users) Fields() []ent.Field {
 		field.Time("updated_at").Default(time.Now()),
 		field.Time("deleted_at").Default(time.Now()).Optional().Nillable(),
 	}
+}
+
+func (Users) Indexes() []ent.Index {
+	return []ent.Index{}
 }
 
 // Edges of the User.
