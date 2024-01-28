@@ -12,6 +12,8 @@ type Shops struct {
 	ent.Schema
 }
 
+const JwtShopsRole = "ShopsRole"
+
 // Fields of the Shops.
 func (Shops) Fields() []ent.Field {
 	return []ent.Field{
