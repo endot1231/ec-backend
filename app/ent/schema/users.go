@@ -20,6 +20,8 @@ type Users struct {
 	ent.Schema
 }
 
+const JwtUsersRole = "UsersRole"
+
 // Fields of the User.
 func (Users) Fields() []ent.Field {
 	return []ent.Field{

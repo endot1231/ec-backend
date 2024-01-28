@@ -28,6 +28,45 @@ func (pu *ProductsUpdate) Where(ps ...predicate.Products) *ProductsUpdate {
 	return pu
 }
 
+// SetShopID sets the "shop_id" field.
+func (pu *ProductsUpdate) SetShopID(i int64) *ProductsUpdate {
+	pu.mutation.ResetShopID()
+	pu.mutation.SetShopID(i)
+	return pu
+}
+
+// AddShopID adds i to the "shop_id" field.
+func (pu *ProductsUpdate) AddShopID(i int64) *ProductsUpdate {
+	pu.mutation.AddShopID(i)
+	return pu
+}
+
+// SetProductCategoryID sets the "product_category_id" field.
+func (pu *ProductsUpdate) SetProductCategoryID(i int64) *ProductsUpdate {
+	pu.mutation.ResetProductCategoryID()
+	pu.mutation.SetProductCategoryID(i)
+	return pu
+}
+
+// AddProductCategoryID adds i to the "product_category_id" field.
+func (pu *ProductsUpdate) AddProductCategoryID(i int64) *ProductsUpdate {
+	pu.mutation.AddProductCategoryID(i)
+	return pu
+}
+
+// SetProductBrandID sets the "product_brand_id" field.
+func (pu *ProductsUpdate) SetProductBrandID(i int64) *ProductsUpdate {
+	pu.mutation.ResetProductBrandID()
+	pu.mutation.SetProductBrandID(i)
+	return pu
+}
+
+// AddProductBrandID adds i to the "product_brand_id" field.
+func (pu *ProductsUpdate) AddProductBrandID(i int64) *ProductsUpdate {
+	pu.mutation.AddProductBrandID(i)
+	return pu
+}
+
 // SetName sets the "name" field.
 func (pu *ProductsUpdate) SetName(s string) *ProductsUpdate {
 	pu.mutation.SetName(s)
@@ -129,6 +168,24 @@ func (pu *ProductsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := pu.mutation.ShopID(); ok {
+		_spec.SetField(products.FieldShopID, field.TypeInt64, value)
+	}
+	if value, ok := pu.mutation.AddedShopID(); ok {
+		_spec.AddField(products.FieldShopID, field.TypeInt64, value)
+	}
+	if value, ok := pu.mutation.ProductCategoryID(); ok {
+		_spec.SetField(products.FieldProductCategoryID, field.TypeInt64, value)
+	}
+	if value, ok := pu.mutation.AddedProductCategoryID(); ok {
+		_spec.AddField(products.FieldProductCategoryID, field.TypeInt64, value)
+	}
+	if value, ok := pu.mutation.ProductBrandID(); ok {
+		_spec.SetField(products.FieldProductBrandID, field.TypeInt64, value)
+	}
+	if value, ok := pu.mutation.AddedProductBrandID(); ok {
+		_spec.AddField(products.FieldProductBrandID, field.TypeInt64, value)
+	}
 	if value, ok := pu.mutation.Name(); ok {
 		_spec.SetField(products.FieldName, field.TypeString, value)
 	}
@@ -165,6 +222,45 @@ type ProductsUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *ProductsMutation
+}
+
+// SetShopID sets the "shop_id" field.
+func (puo *ProductsUpdateOne) SetShopID(i int64) *ProductsUpdateOne {
+	puo.mutation.ResetShopID()
+	puo.mutation.SetShopID(i)
+	return puo
+}
+
+// AddShopID adds i to the "shop_id" field.
+func (puo *ProductsUpdateOne) AddShopID(i int64) *ProductsUpdateOne {
+	puo.mutation.AddShopID(i)
+	return puo
+}
+
+// SetProductCategoryID sets the "product_category_id" field.
+func (puo *ProductsUpdateOne) SetProductCategoryID(i int64) *ProductsUpdateOne {
+	puo.mutation.ResetProductCategoryID()
+	puo.mutation.SetProductCategoryID(i)
+	return puo
+}
+
+// AddProductCategoryID adds i to the "product_category_id" field.
+func (puo *ProductsUpdateOne) AddProductCategoryID(i int64) *ProductsUpdateOne {
+	puo.mutation.AddProductCategoryID(i)
+	return puo
+}
+
+// SetProductBrandID sets the "product_brand_id" field.
+func (puo *ProductsUpdateOne) SetProductBrandID(i int64) *ProductsUpdateOne {
+	puo.mutation.ResetProductBrandID()
+	puo.mutation.SetProductBrandID(i)
+	return puo
+}
+
+// AddProductBrandID adds i to the "product_brand_id" field.
+func (puo *ProductsUpdateOne) AddProductBrandID(i int64) *ProductsUpdateOne {
+	puo.mutation.AddProductBrandID(i)
+	return puo
 }
 
 // SetName sets the "name" field.
@@ -297,6 +393,24 @@ func (puo *ProductsUpdateOne) sqlSave(ctx context.Context) (_node *Products, err
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := puo.mutation.ShopID(); ok {
+		_spec.SetField(products.FieldShopID, field.TypeInt64, value)
+	}
+	if value, ok := puo.mutation.AddedShopID(); ok {
+		_spec.AddField(products.FieldShopID, field.TypeInt64, value)
+	}
+	if value, ok := puo.mutation.ProductCategoryID(); ok {
+		_spec.SetField(products.FieldProductCategoryID, field.TypeInt64, value)
+	}
+	if value, ok := puo.mutation.AddedProductCategoryID(); ok {
+		_spec.AddField(products.FieldProductCategoryID, field.TypeInt64, value)
+	}
+	if value, ok := puo.mutation.ProductBrandID(); ok {
+		_spec.SetField(products.FieldProductBrandID, field.TypeInt64, value)
+	}
+	if value, ok := puo.mutation.AddedProductBrandID(); ok {
+		_spec.AddField(products.FieldProductBrandID, field.TypeInt64, value)
 	}
 	if value, ok := puo.mutation.Name(); ok {
 		_spec.SetField(products.FieldName, field.TypeString, value)

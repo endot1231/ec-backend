@@ -18,13 +18,15 @@ type Shops struct {
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Address holds the value of the "address" field.
+	Address *string `json:"address,omitempty"`
 	// Email holds the value of the "email" field.
 	Email string `json:"email,omitempty"`
 	// EmailVerified holds the value of the "email_verified" field.
 	EmailVerified *time.Time `json:"email_verified,omitempty"`
 	// Password holds the value of the "password" field.
-	Password string `json:"password,omitempty"`
+	Password string `json:"-"`
 	// RememberToken holds the value of the "remember_token" field.
 	RememberToken string `json:"remember_token,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -43,7 +45,7 @@ func (*Shops) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case shops.FieldID:
 			values[i] = new(sql.NullInt64)
-		case shops.FieldName, shops.FieldEmail, shops.FieldPassword, shops.FieldRememberToken:
+		case shops.FieldName, shops.FieldAddress, shops.FieldEmail, shops.FieldPassword, shops.FieldRememberToken:
 			values[i] = new(sql.NullString)
 		case shops.FieldEmailVerified, shops.FieldCreatedAt, shops.FieldUpdatedAt, shops.FieldDeletedAt:
 			values[i] = new(sql.NullTime)
@@ -72,7 +74,15 @@ func (s *Shops) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				s.Name = value.String
+				s.Name = new(string)
+				*s.Name = value.String
+			}
+		case shops.FieldAddress:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field address", values[i])
+			} else if value.Valid {
+				s.Address = new(string)
+				*s.Address = value.String
 			}
 		case shops.FieldEmail:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -154,8 +164,15 @@ func (s *Shops) String() string {
 	var builder strings.Builder
 	builder.WriteString("Shops(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", s.ID))
-	builder.WriteString("name=")
-	builder.WriteString(s.Name)
+	if v := s.Name; v != nil {
+		builder.WriteString("name=")
+		builder.WriteString(*v)
+	}
+	builder.WriteString(", ")
+	if v := s.Address; v != nil {
+		builder.WriteString("address=")
+		builder.WriteString(*v)
+	}
 	builder.WriteString(", ")
 	builder.WriteString("email=")
 	builder.WriteString(s.Email)
@@ -165,8 +182,7 @@ func (s *Shops) String() string {
 		builder.WriteString(v.Format(time.ANSIC))
 	}
 	builder.WriteString(", ")
-	builder.WriteString("password=")
-	builder.WriteString(s.Password)
+	builder.WriteString("password=<sensitive>")
 	builder.WriteString(", ")
 	builder.WriteString("remember_token=")
 	builder.WriteString(s.RememberToken)

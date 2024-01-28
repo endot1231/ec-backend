@@ -26,6 +26,12 @@ func (sc *ShopsCreate) SetName(s string) *ShopsCreate {
 	return sc
 }
 
+// SetAddress sets the "address" field.
+func (sc *ShopsCreate) SetAddress(s string) *ShopsCreate {
+	sc.mutation.SetAddress(s)
+	return sc
+}
+
 // SetEmail sets the "email" field.
 func (sc *ShopsCreate) SetEmail(s string) *ShopsCreate {
 	sc.mutation.SetEmail(s)
@@ -49,6 +55,14 @@ func (sc *ShopsCreate) SetNillableEmailVerified(t *time.Time) *ShopsCreate {
 // SetPassword sets the "password" field.
 func (sc *ShopsCreate) SetPassword(s string) *ShopsCreate {
 	sc.mutation.SetPassword(s)
+	return sc
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (sc *ShopsCreate) SetNillablePassword(s *string) *ShopsCreate {
+	if s != nil {
+		sc.SetPassword(*s)
+	}
 	return sc
 }
 
@@ -166,11 +180,16 @@ func (sc *ShopsCreate) check() error {
 	if _, ok := sc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Shops.name"`)}
 	}
+	if _, ok := sc.mutation.Address(); !ok {
+		return &ValidationError{Name: "address", err: errors.New(`ent: missing required field "Shops.address"`)}
+	}
 	if _, ok := sc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "Shops.email"`)}
 	}
-	if _, ok := sc.mutation.Password(); !ok {
-		return &ValidationError{Name: "password", err: errors.New(`ent: missing required field "Shops.password"`)}
+	if v, ok := sc.mutation.Email(); ok {
+		if err := shops.EmailValidator(v); err != nil {
+			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "Shops.email": %w`, err)}
+		}
 	}
 	if _, ok := sc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Shops.created_at"`)}
@@ -206,7 +225,11 @@ func (sc *ShopsCreate) createSpec() (*Shops, *sqlgraph.CreateSpec) {
 	)
 	if value, ok := sc.mutation.Name(); ok {
 		_spec.SetField(shops.FieldName, field.TypeString, value)
-		_node.Name = value
+		_node.Name = &value
+	}
+	if value, ok := sc.mutation.Address(); ok {
+		_spec.SetField(shops.FieldAddress, field.TypeString, value)
+		_node.Address = &value
 	}
 	if value, ok := sc.mutation.Email(); ok {
 		_spec.SetField(shops.FieldEmail, field.TypeString, value)

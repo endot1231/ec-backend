@@ -11,6 +11,20 @@ type AuthPayload struct {
 	Token *string `json:"token,omitempty"`
 }
 
+type Shop struct {
+	ID      string `json:"id"`
+	Name    string `json:"name"`
+	Address string `json:"address"`
+}
+
+func (Shop) IsNode()            {}
+func (this Shop) GetID() string { return this.ID }
+
+type ShopsSearchInput struct {
+	Name    *string `json:"name,omitempty"`
+	Address *string `json:"address,omitempty"`
+}
+
 type User struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`

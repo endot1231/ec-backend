@@ -54,6 +54,21 @@ func IDLTE(id int) predicate.Products {
 	return predicate.Products(sql.FieldLTE(FieldID, id))
 }
 
+// ShopID applies equality check predicate on the "shop_id" field. It's identical to ShopIDEQ.
+func ShopID(v int64) predicate.Products {
+	return predicate.Products(sql.FieldEQ(FieldShopID, v))
+}
+
+// ProductCategoryID applies equality check predicate on the "product_category_id" field. It's identical to ProductCategoryIDEQ.
+func ProductCategoryID(v int64) predicate.Products {
+	return predicate.Products(sql.FieldEQ(FieldProductCategoryID, v))
+}
+
+// ProductBrandID applies equality check predicate on the "product_brand_id" field. It's identical to ProductBrandIDEQ.
+func ProductBrandID(v int64) predicate.Products {
+	return predicate.Products(sql.FieldEQ(FieldProductBrandID, v))
+}
+
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
 func Name(v string) predicate.Products {
 	return predicate.Products(sql.FieldEQ(FieldName, v))
@@ -77,6 +92,126 @@ func UpdatedAt(v time.Time) predicate.Products {
 // DeletedAt applies equality check predicate on the "deleted_at" field. It's identical to DeletedAtEQ.
 func DeletedAt(v time.Time) predicate.Products {
 	return predicate.Products(sql.FieldEQ(FieldDeletedAt, v))
+}
+
+// ShopIDEQ applies the EQ predicate on the "shop_id" field.
+func ShopIDEQ(v int64) predicate.Products {
+	return predicate.Products(sql.FieldEQ(FieldShopID, v))
+}
+
+// ShopIDNEQ applies the NEQ predicate on the "shop_id" field.
+func ShopIDNEQ(v int64) predicate.Products {
+	return predicate.Products(sql.FieldNEQ(FieldShopID, v))
+}
+
+// ShopIDIn applies the In predicate on the "shop_id" field.
+func ShopIDIn(vs ...int64) predicate.Products {
+	return predicate.Products(sql.FieldIn(FieldShopID, vs...))
+}
+
+// ShopIDNotIn applies the NotIn predicate on the "shop_id" field.
+func ShopIDNotIn(vs ...int64) predicate.Products {
+	return predicate.Products(sql.FieldNotIn(FieldShopID, vs...))
+}
+
+// ShopIDGT applies the GT predicate on the "shop_id" field.
+func ShopIDGT(v int64) predicate.Products {
+	return predicate.Products(sql.FieldGT(FieldShopID, v))
+}
+
+// ShopIDGTE applies the GTE predicate on the "shop_id" field.
+func ShopIDGTE(v int64) predicate.Products {
+	return predicate.Products(sql.FieldGTE(FieldShopID, v))
+}
+
+// ShopIDLT applies the LT predicate on the "shop_id" field.
+func ShopIDLT(v int64) predicate.Products {
+	return predicate.Products(sql.FieldLT(FieldShopID, v))
+}
+
+// ShopIDLTE applies the LTE predicate on the "shop_id" field.
+func ShopIDLTE(v int64) predicate.Products {
+	return predicate.Products(sql.FieldLTE(FieldShopID, v))
+}
+
+// ProductCategoryIDEQ applies the EQ predicate on the "product_category_id" field.
+func ProductCategoryIDEQ(v int64) predicate.Products {
+	return predicate.Products(sql.FieldEQ(FieldProductCategoryID, v))
+}
+
+// ProductCategoryIDNEQ applies the NEQ predicate on the "product_category_id" field.
+func ProductCategoryIDNEQ(v int64) predicate.Products {
+	return predicate.Products(sql.FieldNEQ(FieldProductCategoryID, v))
+}
+
+// ProductCategoryIDIn applies the In predicate on the "product_category_id" field.
+func ProductCategoryIDIn(vs ...int64) predicate.Products {
+	return predicate.Products(sql.FieldIn(FieldProductCategoryID, vs...))
+}
+
+// ProductCategoryIDNotIn applies the NotIn predicate on the "product_category_id" field.
+func ProductCategoryIDNotIn(vs ...int64) predicate.Products {
+	return predicate.Products(sql.FieldNotIn(FieldProductCategoryID, vs...))
+}
+
+// ProductCategoryIDGT applies the GT predicate on the "product_category_id" field.
+func ProductCategoryIDGT(v int64) predicate.Products {
+	return predicate.Products(sql.FieldGT(FieldProductCategoryID, v))
+}
+
+// ProductCategoryIDGTE applies the GTE predicate on the "product_category_id" field.
+func ProductCategoryIDGTE(v int64) predicate.Products {
+	return predicate.Products(sql.FieldGTE(FieldProductCategoryID, v))
+}
+
+// ProductCategoryIDLT applies the LT predicate on the "product_category_id" field.
+func ProductCategoryIDLT(v int64) predicate.Products {
+	return predicate.Products(sql.FieldLT(FieldProductCategoryID, v))
+}
+
+// ProductCategoryIDLTE applies the LTE predicate on the "product_category_id" field.
+func ProductCategoryIDLTE(v int64) predicate.Products {
+	return predicate.Products(sql.FieldLTE(FieldProductCategoryID, v))
+}
+
+// ProductBrandIDEQ applies the EQ predicate on the "product_brand_id" field.
+func ProductBrandIDEQ(v int64) predicate.Products {
+	return predicate.Products(sql.FieldEQ(FieldProductBrandID, v))
+}
+
+// ProductBrandIDNEQ applies the NEQ predicate on the "product_brand_id" field.
+func ProductBrandIDNEQ(v int64) predicate.Products {
+	return predicate.Products(sql.FieldNEQ(FieldProductBrandID, v))
+}
+
+// ProductBrandIDIn applies the In predicate on the "product_brand_id" field.
+func ProductBrandIDIn(vs ...int64) predicate.Products {
+	return predicate.Products(sql.FieldIn(FieldProductBrandID, vs...))
+}
+
+// ProductBrandIDNotIn applies the NotIn predicate on the "product_brand_id" field.
+func ProductBrandIDNotIn(vs ...int64) predicate.Products {
+	return predicate.Products(sql.FieldNotIn(FieldProductBrandID, vs...))
+}
+
+// ProductBrandIDGT applies the GT predicate on the "product_brand_id" field.
+func ProductBrandIDGT(v int64) predicate.Products {
+	return predicate.Products(sql.FieldGT(FieldProductBrandID, v))
+}
+
+// ProductBrandIDGTE applies the GTE predicate on the "product_brand_id" field.
+func ProductBrandIDGTE(v int64) predicate.Products {
+	return predicate.Products(sql.FieldGTE(FieldProductBrandID, v))
+}
+
+// ProductBrandIDLT applies the LT predicate on the "product_brand_id" field.
+func ProductBrandIDLT(v int64) predicate.Products {
+	return predicate.Products(sql.FieldLT(FieldProductBrandID, v))
+}
+
+// ProductBrandIDLTE applies the LTE predicate on the "product_brand_id" field.
+func ProductBrandIDLTE(v int64) predicate.Products {
+	return predicate.Products(sql.FieldLTE(FieldProductBrandID, v))
 }
 
 // NameEQ applies the EQ predicate on the "name" field.

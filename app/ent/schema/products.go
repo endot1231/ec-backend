@@ -15,6 +15,9 @@ type Products struct {
 // Fields of the User.
 func (Products) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int64("shop_id"),
+		field.Int64("product_category_id"),
+		field.Int64("product_brand_id"),
 		field.String("name"),
 		field.String("description"),
 		field.Time("created_at").Default(time.Now()),

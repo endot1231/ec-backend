@@ -34,6 +34,12 @@ func (su *ShopsUpdate) SetName(s string) *ShopsUpdate {
 	return su
 }
 
+// SetAddress sets the "address" field.
+func (su *ShopsUpdate) SetAddress(s string) *ShopsUpdate {
+	su.mutation.SetAddress(s)
+	return su
+}
+
 // SetEmail sets the "email" field.
 func (su *ShopsUpdate) SetEmail(s string) *ShopsUpdate {
 	su.mutation.SetEmail(s)
@@ -63,6 +69,20 @@ func (su *ShopsUpdate) ClearEmailVerified() *ShopsUpdate {
 // SetPassword sets the "password" field.
 func (su *ShopsUpdate) SetPassword(s string) *ShopsUpdate {
 	su.mutation.SetPassword(s)
+	return su
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (su *ShopsUpdate) SetNillablePassword(s *string) *ShopsUpdate {
+	if s != nil {
+		su.SetPassword(*s)
+	}
+	return su
+}
+
+// ClearPassword clears the value of the "password" field.
+func (su *ShopsUpdate) ClearPassword() *ShopsUpdate {
+	su.mutation.ClearPassword()
 	return su
 }
 
@@ -166,7 +186,20 @@ func (su *ShopsUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (su *ShopsUpdate) check() error {
+	if v, ok := su.mutation.Email(); ok {
+		if err := shops.EmailValidator(v); err != nil {
+			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "Shops.email": %w`, err)}
+		}
+	}
+	return nil
+}
+
 func (su *ShopsUpdate) sqlSave(ctx context.Context) (n int, err error) {
+	if err := su.check(); err != nil {
+		return n, err
+	}
 	_spec := sqlgraph.NewUpdateSpec(shops.Table, shops.Columns, sqlgraph.NewFieldSpec(shops.FieldID, field.TypeInt))
 	if ps := su.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -177,6 +210,9 @@ func (su *ShopsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.Name(); ok {
 		_spec.SetField(shops.FieldName, field.TypeString, value)
+	}
+	if value, ok := su.mutation.Address(); ok {
+		_spec.SetField(shops.FieldAddress, field.TypeString, value)
 	}
 	if value, ok := su.mutation.Email(); ok {
 		_spec.SetField(shops.FieldEmail, field.TypeString, value)
@@ -189,6 +225,9 @@ func (su *ShopsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.Password(); ok {
 		_spec.SetField(shops.FieldPassword, field.TypeString, value)
+	}
+	if su.mutation.PasswordCleared() {
+		_spec.ClearField(shops.FieldPassword, field.TypeString)
 	}
 	if value, ok := su.mutation.RememberToken(); ok {
 		_spec.SetField(shops.FieldRememberToken, field.TypeString, value)
@@ -234,6 +273,12 @@ func (suo *ShopsUpdateOne) SetName(s string) *ShopsUpdateOne {
 	return suo
 }
 
+// SetAddress sets the "address" field.
+func (suo *ShopsUpdateOne) SetAddress(s string) *ShopsUpdateOne {
+	suo.mutation.SetAddress(s)
+	return suo
+}
+
 // SetEmail sets the "email" field.
 func (suo *ShopsUpdateOne) SetEmail(s string) *ShopsUpdateOne {
 	suo.mutation.SetEmail(s)
@@ -263,6 +308,20 @@ func (suo *ShopsUpdateOne) ClearEmailVerified() *ShopsUpdateOne {
 // SetPassword sets the "password" field.
 func (suo *ShopsUpdateOne) SetPassword(s string) *ShopsUpdateOne {
 	suo.mutation.SetPassword(s)
+	return suo
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (suo *ShopsUpdateOne) SetNillablePassword(s *string) *ShopsUpdateOne {
+	if s != nil {
+		suo.SetPassword(*s)
+	}
+	return suo
+}
+
+// ClearPassword clears the value of the "password" field.
+func (suo *ShopsUpdateOne) ClearPassword() *ShopsUpdateOne {
+	suo.mutation.ClearPassword()
 	return suo
 }
 
@@ -379,7 +438,20 @@ func (suo *ShopsUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (suo *ShopsUpdateOne) check() error {
+	if v, ok := suo.mutation.Email(); ok {
+		if err := shops.EmailValidator(v); err != nil {
+			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "Shops.email": %w`, err)}
+		}
+	}
+	return nil
+}
+
 func (suo *ShopsUpdateOne) sqlSave(ctx context.Context) (_node *Shops, err error) {
+	if err := suo.check(); err != nil {
+		return _node, err
+	}
 	_spec := sqlgraph.NewUpdateSpec(shops.Table, shops.Columns, sqlgraph.NewFieldSpec(shops.FieldID, field.TypeInt))
 	id, ok := suo.mutation.ID()
 	if !ok {
@@ -408,6 +480,9 @@ func (suo *ShopsUpdateOne) sqlSave(ctx context.Context) (_node *Shops, err error
 	if value, ok := suo.mutation.Name(); ok {
 		_spec.SetField(shops.FieldName, field.TypeString, value)
 	}
+	if value, ok := suo.mutation.Address(); ok {
+		_spec.SetField(shops.FieldAddress, field.TypeString, value)
+	}
 	if value, ok := suo.mutation.Email(); ok {
 		_spec.SetField(shops.FieldEmail, field.TypeString, value)
 	}
@@ -419,6 +494,9 @@ func (suo *ShopsUpdateOne) sqlSave(ctx context.Context) (_node *Shops, err error
 	}
 	if value, ok := suo.mutation.Password(); ok {
 		_spec.SetField(shops.FieldPassword, field.TypeString, value)
+	}
+	if suo.mutation.PasswordCleared() {
+		_spec.ClearField(shops.FieldPassword, field.TypeString)
 	}
 	if value, ok := suo.mutation.RememberToken(); ok {
 		_spec.SetField(shops.FieldRememberToken, field.TypeString, value)

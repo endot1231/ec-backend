@@ -3,14 +3,12 @@ package test_utils
 import (
 	"testing"
 
-	"github.com/endot1231/ec-backend/configs"
 	"github.com/endot1231/ec-backend/ent"
 	"github.com/endot1231/ec-backend/ent/enttest"
 	"github.com/endot1231/ec-backend/ent/migrate"
 )
 
 func NewTestDbClient(t *testing.T) *ent.Client {
-	configs.Init()
 
 	opts := []enttest.Option{
 		enttest.WithOptions(ent.Log(t.Log)),

@@ -15,6 +15,8 @@ const (
 	FieldID = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
+	// FieldAddress holds the string denoting the address field in the database.
+	FieldAddress = "address"
 	// FieldEmail holds the string denoting the email field in the database.
 	FieldEmail = "email"
 	// FieldEmailVerified holds the string denoting the email_verified field in the database.
@@ -37,6 +39,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldName,
+	FieldAddress,
 	FieldEmail,
 	FieldEmailVerified,
 	FieldPassword,
@@ -57,6 +60,8 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	EmailValidator func(string) error
 	// DefaultEmailVerified holds the default value on creation for the "email_verified" field.
 	DefaultEmailVerified time.Time
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
@@ -78,6 +83,11 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByName orders the results by the name field.
 func ByName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldName, opts...).ToFunc()
+}
+
+// ByAddress orders the results by the address field.
+func ByAddress(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAddress, opts...).ToFunc()
 }
 
 // ByEmail orders the results by the email field.

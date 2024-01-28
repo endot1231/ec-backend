@@ -59,6 +59,11 @@ func Name(v string) predicate.Shops {
 	return predicate.Shops(sql.FieldEQ(FieldName, v))
 }
 
+// Address applies equality check predicate on the "address" field. It's identical to AddressEQ.
+func Address(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldAddress, v))
+}
+
 // Email applies equality check predicate on the "email" field. It's identical to EmailEQ.
 func Email(v string) predicate.Shops {
 	return predicate.Shops(sql.FieldEQ(FieldEmail, v))
@@ -157,6 +162,71 @@ func NameEqualFold(v string) predicate.Shops {
 // NameContainsFold applies the ContainsFold predicate on the "name" field.
 func NameContainsFold(v string) predicate.Shops {
 	return predicate.Shops(sql.FieldContainsFold(FieldName, v))
+}
+
+// AddressEQ applies the EQ predicate on the "address" field.
+func AddressEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldAddress, v))
+}
+
+// AddressNEQ applies the NEQ predicate on the "address" field.
+func AddressNEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldNEQ(FieldAddress, v))
+}
+
+// AddressIn applies the In predicate on the "address" field.
+func AddressIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldIn(FieldAddress, vs...))
+}
+
+// AddressNotIn applies the NotIn predicate on the "address" field.
+func AddressNotIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldNotIn(FieldAddress, vs...))
+}
+
+// AddressGT applies the GT predicate on the "address" field.
+func AddressGT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGT(FieldAddress, v))
+}
+
+// AddressGTE applies the GTE predicate on the "address" field.
+func AddressGTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGTE(FieldAddress, v))
+}
+
+// AddressLT applies the LT predicate on the "address" field.
+func AddressLT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLT(FieldAddress, v))
+}
+
+// AddressLTE applies the LTE predicate on the "address" field.
+func AddressLTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLTE(FieldAddress, v))
+}
+
+// AddressContains applies the Contains predicate on the "address" field.
+func AddressContains(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContains(FieldAddress, v))
+}
+
+// AddressHasPrefix applies the HasPrefix predicate on the "address" field.
+func AddressHasPrefix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasPrefix(FieldAddress, v))
+}
+
+// AddressHasSuffix applies the HasSuffix predicate on the "address" field.
+func AddressHasSuffix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasSuffix(FieldAddress, v))
+}
+
+// AddressEqualFold applies the EqualFold predicate on the "address" field.
+func AddressEqualFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEqualFold(FieldAddress, v))
+}
+
+// AddressContainsFold applies the ContainsFold predicate on the "address" field.
+func AddressContainsFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContainsFold(FieldAddress, v))
 }
 
 // EmailEQ applies the EQ predicate on the "email" field.
@@ -327,6 +397,16 @@ func PasswordHasPrefix(v string) predicate.Shops {
 // PasswordHasSuffix applies the HasSuffix predicate on the "password" field.
 func PasswordHasSuffix(v string) predicate.Shops {
 	return predicate.Shops(sql.FieldHasSuffix(FieldPassword, v))
+}
+
+// PasswordIsNil applies the IsNil predicate on the "password" field.
+func PasswordIsNil() predicate.Shops {
+	return predicate.Shops(sql.FieldIsNull(FieldPassword))
+}
+
+// PasswordNotNil applies the NotNil predicate on the "password" field.
+func PasswordNotNil() predicate.Shops {
+	return predicate.Shops(sql.FieldNotNull(FieldPassword))
 }
 
 // PasswordEqualFold applies the EqualFold predicate on the "password" field.

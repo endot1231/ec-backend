@@ -20,6 +20,24 @@ type ProductsCreate struct {
 	hooks    []Hook
 }
 
+// SetShopID sets the "shop_id" field.
+func (pc *ProductsCreate) SetShopID(i int64) *ProductsCreate {
+	pc.mutation.SetShopID(i)
+	return pc
+}
+
+// SetProductCategoryID sets the "product_category_id" field.
+func (pc *ProductsCreate) SetProductCategoryID(i int64) *ProductsCreate {
+	pc.mutation.SetProductCategoryID(i)
+	return pc
+}
+
+// SetProductBrandID sets the "product_brand_id" field.
+func (pc *ProductsCreate) SetProductBrandID(i int64) *ProductsCreate {
+	pc.mutation.SetProductBrandID(i)
+	return pc
+}
+
 // SetName sets the "name" field.
 func (pc *ProductsCreate) SetName(s string) *ProductsCreate {
 	pc.mutation.SetName(s)
@@ -125,6 +143,15 @@ func (pc *ProductsCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (pc *ProductsCreate) check() error {
+	if _, ok := pc.mutation.ShopID(); !ok {
+		return &ValidationError{Name: "shop_id", err: errors.New(`ent: missing required field "Products.shop_id"`)}
+	}
+	if _, ok := pc.mutation.ProductCategoryID(); !ok {
+		return &ValidationError{Name: "product_category_id", err: errors.New(`ent: missing required field "Products.product_category_id"`)}
+	}
+	if _, ok := pc.mutation.ProductBrandID(); !ok {
+		return &ValidationError{Name: "product_brand_id", err: errors.New(`ent: missing required field "Products.product_brand_id"`)}
+	}
 	if _, ok := pc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Products.name"`)}
 	}
@@ -163,6 +190,18 @@ func (pc *ProductsCreate) createSpec() (*Products, *sqlgraph.CreateSpec) {
 		_node = &Products{config: pc.config}
 		_spec = sqlgraph.NewCreateSpec(products.Table, sqlgraph.NewFieldSpec(products.FieldID, field.TypeInt))
 	)
+	if value, ok := pc.mutation.ShopID(); ok {
+		_spec.SetField(products.FieldShopID, field.TypeInt64, value)
+		_node.ShopID = value
+	}
+	if value, ok := pc.mutation.ProductCategoryID(); ok {
+		_spec.SetField(products.FieldProductCategoryID, field.TypeInt64, value)
+		_node.ProductCategoryID = value
+	}
+	if value, ok := pc.mutation.ProductBrandID(); ok {
+		_spec.SetField(products.FieldProductBrandID, field.TypeInt64, value)
+		_node.ProductBrandID = value
+	}
 	if value, ok := pc.mutation.Name(); ok {
 		_spec.SetField(products.FieldName, field.TypeString, value)
 		_node.Name = value
