@@ -17,6 +17,14 @@ const (
 	FieldName = "name"
 	// FieldAddress holds the string denoting the address field in the database.
 	FieldAddress = "address"
+	// FieldEmail holds the string denoting the email field in the database.
+	FieldEmail = "email"
+	// FieldEmailVerified holds the string denoting the email_verified field in the database.
+	FieldEmailVerified = "email_verified"
+	// FieldPassword holds the string denoting the password field in the database.
+	FieldPassword = "password"
+	// FieldRememberToken holds the string denoting the remember_token field in the database.
+	FieldRememberToken = "remember_token"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -32,6 +40,10 @@ var Columns = []string{
 	FieldID,
 	FieldName,
 	FieldAddress,
+	FieldEmail,
+	FieldEmailVerified,
+	FieldPassword,
+	FieldRememberToken,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldDeletedAt,
@@ -48,6 +60,10 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	EmailValidator func(string) error
+	// DefaultEmailVerified holds the default value on creation for the "email_verified" field.
+	DefaultEmailVerified time.Time
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt time.Time
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
@@ -72,6 +88,26 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 // ByAddress orders the results by the address field.
 func ByAddress(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAddress, opts...).ToFunc()
+}
+
+// ByEmail orders the results by the email field.
+func ByEmail(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldEmail, opts...).ToFunc()
+}
+
+// ByEmailVerified orders the results by the email_verified field.
+func ByEmailVerified(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldEmailVerified, opts...).ToFunc()
+}
+
+// ByPassword orders the results by the password field.
+func ByPassword(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPassword, opts...).ToFunc()
+}
+
+// ByRememberToken orders the results by the remember_token field.
+func ByRememberToken(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRememberToken, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

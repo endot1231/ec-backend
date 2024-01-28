@@ -5039,18 +5039,22 @@ func (m *ReviewsMutation) ResetEdge(name string) error {
 // ShopsMutation represents an operation that mutates the Shops nodes in the graph.
 type ShopsMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *int
-	name          *string
-	address       *string
-	created_at    *time.Time
-	updated_at    *time.Time
-	deleted_at    *time.Time
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*Shops, error)
-	predicates    []predicate.Shops
+	op             Op
+	typ            string
+	id             *int
+	name           *string
+	address        *string
+	email          *string
+	email_verified *time.Time
+	password       *string
+	remember_token *string
+	created_at     *time.Time
+	updated_at     *time.Time
+	deleted_at     *time.Time
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*Shops, error)
+	predicates     []predicate.Shops
 }
 
 var _ ent.Mutation = (*ShopsMutation)(nil)
@@ -5223,6 +5227,189 @@ func (m *ShopsMutation) ResetAddress() {
 	m.address = nil
 }
 
+// SetEmail sets the "email" field.
+func (m *ShopsMutation) SetEmail(s string) {
+	m.email = &s
+}
+
+// Email returns the value of the "email" field in the mutation.
+func (m *ShopsMutation) Email() (r string, exists bool) {
+	v := m.email
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEmail returns the old "email" field's value of the Shops entity.
+// If the Shops object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ShopsMutation) OldEmail(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEmail is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEmail requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEmail: %w", err)
+	}
+	return oldValue.Email, nil
+}
+
+// ResetEmail resets all changes to the "email" field.
+func (m *ShopsMutation) ResetEmail() {
+	m.email = nil
+}
+
+// SetEmailVerified sets the "email_verified" field.
+func (m *ShopsMutation) SetEmailVerified(t time.Time) {
+	m.email_verified = &t
+}
+
+// EmailVerified returns the value of the "email_verified" field in the mutation.
+func (m *ShopsMutation) EmailVerified() (r time.Time, exists bool) {
+	v := m.email_verified
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEmailVerified returns the old "email_verified" field's value of the Shops entity.
+// If the Shops object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ShopsMutation) OldEmailVerified(ctx context.Context) (v *time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEmailVerified is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEmailVerified requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEmailVerified: %w", err)
+	}
+	return oldValue.EmailVerified, nil
+}
+
+// ClearEmailVerified clears the value of the "email_verified" field.
+func (m *ShopsMutation) ClearEmailVerified() {
+	m.email_verified = nil
+	m.clearedFields[shops.FieldEmailVerified] = struct{}{}
+}
+
+// EmailVerifiedCleared returns if the "email_verified" field was cleared in this mutation.
+func (m *ShopsMutation) EmailVerifiedCleared() bool {
+	_, ok := m.clearedFields[shops.FieldEmailVerified]
+	return ok
+}
+
+// ResetEmailVerified resets all changes to the "email_verified" field.
+func (m *ShopsMutation) ResetEmailVerified() {
+	m.email_verified = nil
+	delete(m.clearedFields, shops.FieldEmailVerified)
+}
+
+// SetPassword sets the "password" field.
+func (m *ShopsMutation) SetPassword(s string) {
+	m.password = &s
+}
+
+// Password returns the value of the "password" field in the mutation.
+func (m *ShopsMutation) Password() (r string, exists bool) {
+	v := m.password
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPassword returns the old "password" field's value of the Shops entity.
+// If the Shops object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ShopsMutation) OldPassword(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPassword is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPassword requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPassword: %w", err)
+	}
+	return oldValue.Password, nil
+}
+
+// ClearPassword clears the value of the "password" field.
+func (m *ShopsMutation) ClearPassword() {
+	m.password = nil
+	m.clearedFields[shops.FieldPassword] = struct{}{}
+}
+
+// PasswordCleared returns if the "password" field was cleared in this mutation.
+func (m *ShopsMutation) PasswordCleared() bool {
+	_, ok := m.clearedFields[shops.FieldPassword]
+	return ok
+}
+
+// ResetPassword resets all changes to the "password" field.
+func (m *ShopsMutation) ResetPassword() {
+	m.password = nil
+	delete(m.clearedFields, shops.FieldPassword)
+}
+
+// SetRememberToken sets the "remember_token" field.
+func (m *ShopsMutation) SetRememberToken(s string) {
+	m.remember_token = &s
+}
+
+// RememberToken returns the value of the "remember_token" field in the mutation.
+func (m *ShopsMutation) RememberToken() (r string, exists bool) {
+	v := m.remember_token
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRememberToken returns the old "remember_token" field's value of the Shops entity.
+// If the Shops object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ShopsMutation) OldRememberToken(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRememberToken is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRememberToken requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRememberToken: %w", err)
+	}
+	return oldValue.RememberToken, nil
+}
+
+// ClearRememberToken clears the value of the "remember_token" field.
+func (m *ShopsMutation) ClearRememberToken() {
+	m.remember_token = nil
+	m.clearedFields[shops.FieldRememberToken] = struct{}{}
+}
+
+// RememberTokenCleared returns if the "remember_token" field was cleared in this mutation.
+func (m *ShopsMutation) RememberTokenCleared() bool {
+	_, ok := m.clearedFields[shops.FieldRememberToken]
+	return ok
+}
+
+// ResetRememberToken resets all changes to the "remember_token" field.
+func (m *ShopsMutation) ResetRememberToken() {
+	m.remember_token = nil
+	delete(m.clearedFields, shops.FieldRememberToken)
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (m *ShopsMutation) SetCreatedAt(t time.Time) {
 	m.created_at = &t
@@ -5378,12 +5565,24 @@ func (m *ShopsMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ShopsMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 9)
 	if m.name != nil {
 		fields = append(fields, shops.FieldName)
 	}
 	if m.address != nil {
 		fields = append(fields, shops.FieldAddress)
+	}
+	if m.email != nil {
+		fields = append(fields, shops.FieldEmail)
+	}
+	if m.email_verified != nil {
+		fields = append(fields, shops.FieldEmailVerified)
+	}
+	if m.password != nil {
+		fields = append(fields, shops.FieldPassword)
+	}
+	if m.remember_token != nil {
+		fields = append(fields, shops.FieldRememberToken)
 	}
 	if m.created_at != nil {
 		fields = append(fields, shops.FieldCreatedAt)
@@ -5406,6 +5605,14 @@ func (m *ShopsMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case shops.FieldAddress:
 		return m.Address()
+	case shops.FieldEmail:
+		return m.Email()
+	case shops.FieldEmailVerified:
+		return m.EmailVerified()
+	case shops.FieldPassword:
+		return m.Password()
+	case shops.FieldRememberToken:
+		return m.RememberToken()
 	case shops.FieldCreatedAt:
 		return m.CreatedAt()
 	case shops.FieldUpdatedAt:
@@ -5425,6 +5632,14 @@ func (m *ShopsMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldName(ctx)
 	case shops.FieldAddress:
 		return m.OldAddress(ctx)
+	case shops.FieldEmail:
+		return m.OldEmail(ctx)
+	case shops.FieldEmailVerified:
+		return m.OldEmailVerified(ctx)
+	case shops.FieldPassword:
+		return m.OldPassword(ctx)
+	case shops.FieldRememberToken:
+		return m.OldRememberToken(ctx)
 	case shops.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
 	case shops.FieldUpdatedAt:
@@ -5453,6 +5668,34 @@ func (m *ShopsMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAddress(v)
+		return nil
+	case shops.FieldEmail:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEmail(v)
+		return nil
+	case shops.FieldEmailVerified:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEmailVerified(v)
+		return nil
+	case shops.FieldPassword:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPassword(v)
+		return nil
+	case shops.FieldRememberToken:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRememberToken(v)
 		return nil
 	case shops.FieldCreatedAt:
 		v, ok := value.(time.Time)
@@ -5505,6 +5748,15 @@ func (m *ShopsMutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *ShopsMutation) ClearedFields() []string {
 	var fields []string
+	if m.FieldCleared(shops.FieldEmailVerified) {
+		fields = append(fields, shops.FieldEmailVerified)
+	}
+	if m.FieldCleared(shops.FieldPassword) {
+		fields = append(fields, shops.FieldPassword)
+	}
+	if m.FieldCleared(shops.FieldRememberToken) {
+		fields = append(fields, shops.FieldRememberToken)
+	}
 	if m.FieldCleared(shops.FieldDeletedAt) {
 		fields = append(fields, shops.FieldDeletedAt)
 	}
@@ -5522,6 +5774,15 @@ func (m *ShopsMutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *ShopsMutation) ClearField(name string) error {
 	switch name {
+	case shops.FieldEmailVerified:
+		m.ClearEmailVerified()
+		return nil
+	case shops.FieldPassword:
+		m.ClearPassword()
+		return nil
+	case shops.FieldRememberToken:
+		m.ClearRememberToken()
+		return nil
 	case shops.FieldDeletedAt:
 		m.ClearDeletedAt()
 		return nil
@@ -5538,6 +5799,18 @@ func (m *ShopsMutation) ResetField(name string) error {
 		return nil
 	case shops.FieldAddress:
 		m.ResetAddress()
+		return nil
+	case shops.FieldEmail:
+		m.ResetEmail()
+		return nil
+	case shops.FieldEmailVerified:
+		m.ResetEmailVerified()
+		return nil
+	case shops.FieldPassword:
+		m.ResetPassword()
+		return nil
+	case shops.FieldRememberToken:
+		m.ResetRememberToken()
 		return nil
 	case shops.FieldCreatedAt:
 		m.ResetCreatedAt()

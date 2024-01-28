@@ -21,6 +21,14 @@ type Shops struct {
 	Name *string `json:"name,omitempty"`
 	// Address holds the value of the "address" field.
 	Address *string `json:"address,omitempty"`
+	// Email holds the value of the "email" field.
+	Email string `json:"email,omitempty"`
+	// EmailVerified holds the value of the "email_verified" field.
+	EmailVerified *time.Time `json:"email_verified,omitempty"`
+	// Password holds the value of the "password" field.
+	Password string `json:"-"`
+	// RememberToken holds the value of the "remember_token" field.
+	RememberToken string `json:"remember_token,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
@@ -37,9 +45,9 @@ func (*Shops) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case shops.FieldID:
 			values[i] = new(sql.NullInt64)
-		case shops.FieldName, shops.FieldAddress:
+		case shops.FieldName, shops.FieldAddress, shops.FieldEmail, shops.FieldPassword, shops.FieldRememberToken:
 			values[i] = new(sql.NullString)
-		case shops.FieldCreatedAt, shops.FieldUpdatedAt, shops.FieldDeletedAt:
+		case shops.FieldEmailVerified, shops.FieldCreatedAt, shops.FieldUpdatedAt, shops.FieldDeletedAt:
 			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -75,6 +83,31 @@ func (s *Shops) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				s.Address = new(string)
 				*s.Address = value.String
+			}
+		case shops.FieldEmail:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field email", values[i])
+			} else if value.Valid {
+				s.Email = value.String
+			}
+		case shops.FieldEmailVerified:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field email_verified", values[i])
+			} else if value.Valid {
+				s.EmailVerified = new(time.Time)
+				*s.EmailVerified = value.Time
+			}
+		case shops.FieldPassword:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field password", values[i])
+			} else if value.Valid {
+				s.Password = value.String
+			}
+		case shops.FieldRememberToken:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field remember_token", values[i])
+			} else if value.Valid {
+				s.RememberToken = value.String
 			}
 		case shops.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -140,6 +173,19 @@ func (s *Shops) String() string {
 		builder.WriteString("address=")
 		builder.WriteString(*v)
 	}
+	builder.WriteString(", ")
+	builder.WriteString("email=")
+	builder.WriteString(s.Email)
+	builder.WriteString(", ")
+	if v := s.EmailVerified; v != nil {
+		builder.WriteString("email_verified=")
+		builder.WriteString(v.Format(time.ANSIC))
+	}
+	builder.WriteString(", ")
+	builder.WriteString("password=<sensitive>")
+	builder.WriteString(", ")
+	builder.WriteString("remember_token=")
+	builder.WriteString(s.RememberToken)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(s.CreatedAt.Format(time.ANSIC))

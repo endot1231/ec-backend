@@ -64,6 +64,26 @@ func Address(v string) predicate.Shops {
 	return predicate.Shops(sql.FieldEQ(FieldAddress, v))
 }
 
+// Email applies equality check predicate on the "email" field. It's identical to EmailEQ.
+func Email(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldEmail, v))
+}
+
+// EmailVerified applies equality check predicate on the "email_verified" field. It's identical to EmailVerifiedEQ.
+func EmailVerified(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldEmailVerified, v))
+}
+
+// Password applies equality check predicate on the "password" field. It's identical to PasswordEQ.
+func Password(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldPassword, v))
+}
+
+// RememberToken applies equality check predicate on the "remember_token" field. It's identical to RememberTokenEQ.
+func RememberToken(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldRememberToken, v))
+}
+
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.Shops {
 	return predicate.Shops(sql.FieldEQ(FieldCreatedAt, v))
@@ -207,6 +227,271 @@ func AddressEqualFold(v string) predicate.Shops {
 // AddressContainsFold applies the ContainsFold predicate on the "address" field.
 func AddressContainsFold(v string) predicate.Shops {
 	return predicate.Shops(sql.FieldContainsFold(FieldAddress, v))
+}
+
+// EmailEQ applies the EQ predicate on the "email" field.
+func EmailEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldEmail, v))
+}
+
+// EmailNEQ applies the NEQ predicate on the "email" field.
+func EmailNEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldNEQ(FieldEmail, v))
+}
+
+// EmailIn applies the In predicate on the "email" field.
+func EmailIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldIn(FieldEmail, vs...))
+}
+
+// EmailNotIn applies the NotIn predicate on the "email" field.
+func EmailNotIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldNotIn(FieldEmail, vs...))
+}
+
+// EmailGT applies the GT predicate on the "email" field.
+func EmailGT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGT(FieldEmail, v))
+}
+
+// EmailGTE applies the GTE predicate on the "email" field.
+func EmailGTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGTE(FieldEmail, v))
+}
+
+// EmailLT applies the LT predicate on the "email" field.
+func EmailLT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLT(FieldEmail, v))
+}
+
+// EmailLTE applies the LTE predicate on the "email" field.
+func EmailLTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLTE(FieldEmail, v))
+}
+
+// EmailContains applies the Contains predicate on the "email" field.
+func EmailContains(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContains(FieldEmail, v))
+}
+
+// EmailHasPrefix applies the HasPrefix predicate on the "email" field.
+func EmailHasPrefix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasPrefix(FieldEmail, v))
+}
+
+// EmailHasSuffix applies the HasSuffix predicate on the "email" field.
+func EmailHasSuffix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasSuffix(FieldEmail, v))
+}
+
+// EmailEqualFold applies the EqualFold predicate on the "email" field.
+func EmailEqualFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEqualFold(FieldEmail, v))
+}
+
+// EmailContainsFold applies the ContainsFold predicate on the "email" field.
+func EmailContainsFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContainsFold(FieldEmail, v))
+}
+
+// EmailVerifiedEQ applies the EQ predicate on the "email_verified" field.
+func EmailVerifiedEQ(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldEmailVerified, v))
+}
+
+// EmailVerifiedNEQ applies the NEQ predicate on the "email_verified" field.
+func EmailVerifiedNEQ(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldNEQ(FieldEmailVerified, v))
+}
+
+// EmailVerifiedIn applies the In predicate on the "email_verified" field.
+func EmailVerifiedIn(vs ...time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldIn(FieldEmailVerified, vs...))
+}
+
+// EmailVerifiedNotIn applies the NotIn predicate on the "email_verified" field.
+func EmailVerifiedNotIn(vs ...time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldNotIn(FieldEmailVerified, vs...))
+}
+
+// EmailVerifiedGT applies the GT predicate on the "email_verified" field.
+func EmailVerifiedGT(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldGT(FieldEmailVerified, v))
+}
+
+// EmailVerifiedGTE applies the GTE predicate on the "email_verified" field.
+func EmailVerifiedGTE(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldGTE(FieldEmailVerified, v))
+}
+
+// EmailVerifiedLT applies the LT predicate on the "email_verified" field.
+func EmailVerifiedLT(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldLT(FieldEmailVerified, v))
+}
+
+// EmailVerifiedLTE applies the LTE predicate on the "email_verified" field.
+func EmailVerifiedLTE(v time.Time) predicate.Shops {
+	return predicate.Shops(sql.FieldLTE(FieldEmailVerified, v))
+}
+
+// EmailVerifiedIsNil applies the IsNil predicate on the "email_verified" field.
+func EmailVerifiedIsNil() predicate.Shops {
+	return predicate.Shops(sql.FieldIsNull(FieldEmailVerified))
+}
+
+// EmailVerifiedNotNil applies the NotNil predicate on the "email_verified" field.
+func EmailVerifiedNotNil() predicate.Shops {
+	return predicate.Shops(sql.FieldNotNull(FieldEmailVerified))
+}
+
+// PasswordEQ applies the EQ predicate on the "password" field.
+func PasswordEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldPassword, v))
+}
+
+// PasswordNEQ applies the NEQ predicate on the "password" field.
+func PasswordNEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldNEQ(FieldPassword, v))
+}
+
+// PasswordIn applies the In predicate on the "password" field.
+func PasswordIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldIn(FieldPassword, vs...))
+}
+
+// PasswordNotIn applies the NotIn predicate on the "password" field.
+func PasswordNotIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldNotIn(FieldPassword, vs...))
+}
+
+// PasswordGT applies the GT predicate on the "password" field.
+func PasswordGT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGT(FieldPassword, v))
+}
+
+// PasswordGTE applies the GTE predicate on the "password" field.
+func PasswordGTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGTE(FieldPassword, v))
+}
+
+// PasswordLT applies the LT predicate on the "password" field.
+func PasswordLT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLT(FieldPassword, v))
+}
+
+// PasswordLTE applies the LTE predicate on the "password" field.
+func PasswordLTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLTE(FieldPassword, v))
+}
+
+// PasswordContains applies the Contains predicate on the "password" field.
+func PasswordContains(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContains(FieldPassword, v))
+}
+
+// PasswordHasPrefix applies the HasPrefix predicate on the "password" field.
+func PasswordHasPrefix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasPrefix(FieldPassword, v))
+}
+
+// PasswordHasSuffix applies the HasSuffix predicate on the "password" field.
+func PasswordHasSuffix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasSuffix(FieldPassword, v))
+}
+
+// PasswordIsNil applies the IsNil predicate on the "password" field.
+func PasswordIsNil() predicate.Shops {
+	return predicate.Shops(sql.FieldIsNull(FieldPassword))
+}
+
+// PasswordNotNil applies the NotNil predicate on the "password" field.
+func PasswordNotNil() predicate.Shops {
+	return predicate.Shops(sql.FieldNotNull(FieldPassword))
+}
+
+// PasswordEqualFold applies the EqualFold predicate on the "password" field.
+func PasswordEqualFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEqualFold(FieldPassword, v))
+}
+
+// PasswordContainsFold applies the ContainsFold predicate on the "password" field.
+func PasswordContainsFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContainsFold(FieldPassword, v))
+}
+
+// RememberTokenEQ applies the EQ predicate on the "remember_token" field.
+func RememberTokenEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEQ(FieldRememberToken, v))
+}
+
+// RememberTokenNEQ applies the NEQ predicate on the "remember_token" field.
+func RememberTokenNEQ(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldNEQ(FieldRememberToken, v))
+}
+
+// RememberTokenIn applies the In predicate on the "remember_token" field.
+func RememberTokenIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldIn(FieldRememberToken, vs...))
+}
+
+// RememberTokenNotIn applies the NotIn predicate on the "remember_token" field.
+func RememberTokenNotIn(vs ...string) predicate.Shops {
+	return predicate.Shops(sql.FieldNotIn(FieldRememberToken, vs...))
+}
+
+// RememberTokenGT applies the GT predicate on the "remember_token" field.
+func RememberTokenGT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGT(FieldRememberToken, v))
+}
+
+// RememberTokenGTE applies the GTE predicate on the "remember_token" field.
+func RememberTokenGTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldGTE(FieldRememberToken, v))
+}
+
+// RememberTokenLT applies the LT predicate on the "remember_token" field.
+func RememberTokenLT(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLT(FieldRememberToken, v))
+}
+
+// RememberTokenLTE applies the LTE predicate on the "remember_token" field.
+func RememberTokenLTE(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldLTE(FieldRememberToken, v))
+}
+
+// RememberTokenContains applies the Contains predicate on the "remember_token" field.
+func RememberTokenContains(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContains(FieldRememberToken, v))
+}
+
+// RememberTokenHasPrefix applies the HasPrefix predicate on the "remember_token" field.
+func RememberTokenHasPrefix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasPrefix(FieldRememberToken, v))
+}
+
+// RememberTokenHasSuffix applies the HasSuffix predicate on the "remember_token" field.
+func RememberTokenHasSuffix(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldHasSuffix(FieldRememberToken, v))
+}
+
+// RememberTokenIsNil applies the IsNil predicate on the "remember_token" field.
+func RememberTokenIsNil() predicate.Shops {
+	return predicate.Shops(sql.FieldIsNull(FieldRememberToken))
+}
+
+// RememberTokenNotNil applies the NotNil predicate on the "remember_token" field.
+func RememberTokenNotNil() predicate.Shops {
+	return predicate.Shops(sql.FieldNotNull(FieldRememberToken))
+}
+
+// RememberTokenEqualFold applies the EqualFold predicate on the "remember_token" field.
+func RememberTokenEqualFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldEqualFold(FieldRememberToken, v))
+}
+
+// RememberTokenContainsFold applies the ContainsFold predicate on the "remember_token" field.
+func RememberTokenContainsFold(v string) predicate.Shops {
+	return predicate.Shops(sql.FieldContainsFold(FieldRememberToken, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.

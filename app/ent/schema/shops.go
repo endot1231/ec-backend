@@ -17,6 +17,10 @@ func (Shops) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").Nillable(),
 		field.String("address").Nillable(),
+		field.String("email").Unique().NotEmpty(),
+		field.Time("email_verified").Default(time.Now()).Optional().Nillable(),
+		field.String("password").Optional().Sensitive(),
+		field.String("remember_token").Optional(),
 		field.Time("created_at").Default(time.Now()),
 		field.Time("updated_at").Default(time.Now()),
 		field.Time("deleted_at").Default(time.Now()).Optional().Nillable(),

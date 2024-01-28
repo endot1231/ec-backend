@@ -40,6 +40,72 @@ func (su *ShopsUpdate) SetAddress(s string) *ShopsUpdate {
 	return su
 }
 
+// SetEmail sets the "email" field.
+func (su *ShopsUpdate) SetEmail(s string) *ShopsUpdate {
+	su.mutation.SetEmail(s)
+	return su
+}
+
+// SetEmailVerified sets the "email_verified" field.
+func (su *ShopsUpdate) SetEmailVerified(t time.Time) *ShopsUpdate {
+	su.mutation.SetEmailVerified(t)
+	return su
+}
+
+// SetNillableEmailVerified sets the "email_verified" field if the given value is not nil.
+func (su *ShopsUpdate) SetNillableEmailVerified(t *time.Time) *ShopsUpdate {
+	if t != nil {
+		su.SetEmailVerified(*t)
+	}
+	return su
+}
+
+// ClearEmailVerified clears the value of the "email_verified" field.
+func (su *ShopsUpdate) ClearEmailVerified() *ShopsUpdate {
+	su.mutation.ClearEmailVerified()
+	return su
+}
+
+// SetPassword sets the "password" field.
+func (su *ShopsUpdate) SetPassword(s string) *ShopsUpdate {
+	su.mutation.SetPassword(s)
+	return su
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (su *ShopsUpdate) SetNillablePassword(s *string) *ShopsUpdate {
+	if s != nil {
+		su.SetPassword(*s)
+	}
+	return su
+}
+
+// ClearPassword clears the value of the "password" field.
+func (su *ShopsUpdate) ClearPassword() *ShopsUpdate {
+	su.mutation.ClearPassword()
+	return su
+}
+
+// SetRememberToken sets the "remember_token" field.
+func (su *ShopsUpdate) SetRememberToken(s string) *ShopsUpdate {
+	su.mutation.SetRememberToken(s)
+	return su
+}
+
+// SetNillableRememberToken sets the "remember_token" field if the given value is not nil.
+func (su *ShopsUpdate) SetNillableRememberToken(s *string) *ShopsUpdate {
+	if s != nil {
+		su.SetRememberToken(*s)
+	}
+	return su
+}
+
+// ClearRememberToken clears the value of the "remember_token" field.
+func (su *ShopsUpdate) ClearRememberToken() *ShopsUpdate {
+	su.mutation.ClearRememberToken()
+	return su
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (su *ShopsUpdate) SetCreatedAt(t time.Time) *ShopsUpdate {
 	su.mutation.SetCreatedAt(t)
@@ -120,7 +186,20 @@ func (su *ShopsUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (su *ShopsUpdate) check() error {
+	if v, ok := su.mutation.Email(); ok {
+		if err := shops.EmailValidator(v); err != nil {
+			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "Shops.email": %w`, err)}
+		}
+	}
+	return nil
+}
+
 func (su *ShopsUpdate) sqlSave(ctx context.Context) (n int, err error) {
+	if err := su.check(); err != nil {
+		return n, err
+	}
 	_spec := sqlgraph.NewUpdateSpec(shops.Table, shops.Columns, sqlgraph.NewFieldSpec(shops.FieldID, field.TypeInt))
 	if ps := su.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -134,6 +213,27 @@ func (su *ShopsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.Address(); ok {
 		_spec.SetField(shops.FieldAddress, field.TypeString, value)
+	}
+	if value, ok := su.mutation.Email(); ok {
+		_spec.SetField(shops.FieldEmail, field.TypeString, value)
+	}
+	if value, ok := su.mutation.EmailVerified(); ok {
+		_spec.SetField(shops.FieldEmailVerified, field.TypeTime, value)
+	}
+	if su.mutation.EmailVerifiedCleared() {
+		_spec.ClearField(shops.FieldEmailVerified, field.TypeTime)
+	}
+	if value, ok := su.mutation.Password(); ok {
+		_spec.SetField(shops.FieldPassword, field.TypeString, value)
+	}
+	if su.mutation.PasswordCleared() {
+		_spec.ClearField(shops.FieldPassword, field.TypeString)
+	}
+	if value, ok := su.mutation.RememberToken(); ok {
+		_spec.SetField(shops.FieldRememberToken, field.TypeString, value)
+	}
+	if su.mutation.RememberTokenCleared() {
+		_spec.ClearField(shops.FieldRememberToken, field.TypeString)
 	}
 	if value, ok := su.mutation.CreatedAt(); ok {
 		_spec.SetField(shops.FieldCreatedAt, field.TypeTime, value)
@@ -176,6 +276,72 @@ func (suo *ShopsUpdateOne) SetName(s string) *ShopsUpdateOne {
 // SetAddress sets the "address" field.
 func (suo *ShopsUpdateOne) SetAddress(s string) *ShopsUpdateOne {
 	suo.mutation.SetAddress(s)
+	return suo
+}
+
+// SetEmail sets the "email" field.
+func (suo *ShopsUpdateOne) SetEmail(s string) *ShopsUpdateOne {
+	suo.mutation.SetEmail(s)
+	return suo
+}
+
+// SetEmailVerified sets the "email_verified" field.
+func (suo *ShopsUpdateOne) SetEmailVerified(t time.Time) *ShopsUpdateOne {
+	suo.mutation.SetEmailVerified(t)
+	return suo
+}
+
+// SetNillableEmailVerified sets the "email_verified" field if the given value is not nil.
+func (suo *ShopsUpdateOne) SetNillableEmailVerified(t *time.Time) *ShopsUpdateOne {
+	if t != nil {
+		suo.SetEmailVerified(*t)
+	}
+	return suo
+}
+
+// ClearEmailVerified clears the value of the "email_verified" field.
+func (suo *ShopsUpdateOne) ClearEmailVerified() *ShopsUpdateOne {
+	suo.mutation.ClearEmailVerified()
+	return suo
+}
+
+// SetPassword sets the "password" field.
+func (suo *ShopsUpdateOne) SetPassword(s string) *ShopsUpdateOne {
+	suo.mutation.SetPassword(s)
+	return suo
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (suo *ShopsUpdateOne) SetNillablePassword(s *string) *ShopsUpdateOne {
+	if s != nil {
+		suo.SetPassword(*s)
+	}
+	return suo
+}
+
+// ClearPassword clears the value of the "password" field.
+func (suo *ShopsUpdateOne) ClearPassword() *ShopsUpdateOne {
+	suo.mutation.ClearPassword()
+	return suo
+}
+
+// SetRememberToken sets the "remember_token" field.
+func (suo *ShopsUpdateOne) SetRememberToken(s string) *ShopsUpdateOne {
+	suo.mutation.SetRememberToken(s)
+	return suo
+}
+
+// SetNillableRememberToken sets the "remember_token" field if the given value is not nil.
+func (suo *ShopsUpdateOne) SetNillableRememberToken(s *string) *ShopsUpdateOne {
+	if s != nil {
+		suo.SetRememberToken(*s)
+	}
+	return suo
+}
+
+// ClearRememberToken clears the value of the "remember_token" field.
+func (suo *ShopsUpdateOne) ClearRememberToken() *ShopsUpdateOne {
+	suo.mutation.ClearRememberToken()
 	return suo
 }
 
@@ -272,7 +438,20 @@ func (suo *ShopsUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (suo *ShopsUpdateOne) check() error {
+	if v, ok := suo.mutation.Email(); ok {
+		if err := shops.EmailValidator(v); err != nil {
+			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "Shops.email": %w`, err)}
+		}
+	}
+	return nil
+}
+
 func (suo *ShopsUpdateOne) sqlSave(ctx context.Context) (_node *Shops, err error) {
+	if err := suo.check(); err != nil {
+		return _node, err
+	}
 	_spec := sqlgraph.NewUpdateSpec(shops.Table, shops.Columns, sqlgraph.NewFieldSpec(shops.FieldID, field.TypeInt))
 	id, ok := suo.mutation.ID()
 	if !ok {
@@ -303,6 +482,27 @@ func (suo *ShopsUpdateOne) sqlSave(ctx context.Context) (_node *Shops, err error
 	}
 	if value, ok := suo.mutation.Address(); ok {
 		_spec.SetField(shops.FieldAddress, field.TypeString, value)
+	}
+	if value, ok := suo.mutation.Email(); ok {
+		_spec.SetField(shops.FieldEmail, field.TypeString, value)
+	}
+	if value, ok := suo.mutation.EmailVerified(); ok {
+		_spec.SetField(shops.FieldEmailVerified, field.TypeTime, value)
+	}
+	if suo.mutation.EmailVerifiedCleared() {
+		_spec.ClearField(shops.FieldEmailVerified, field.TypeTime)
+	}
+	if value, ok := suo.mutation.Password(); ok {
+		_spec.SetField(shops.FieldPassword, field.TypeString, value)
+	}
+	if suo.mutation.PasswordCleared() {
+		_spec.ClearField(shops.FieldPassword, field.TypeString)
+	}
+	if value, ok := suo.mutation.RememberToken(); ok {
+		_spec.SetField(shops.FieldRememberToken, field.TypeString, value)
+	}
+	if suo.mutation.RememberTokenCleared() {
+		_spec.ClearField(shops.FieldRememberToken, field.TypeString)
 	}
 	if value, ok := suo.mutation.CreatedAt(); ok {
 		_spec.SetField(shops.FieldCreatedAt, field.TypeTime, value)
