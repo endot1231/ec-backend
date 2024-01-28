@@ -261,12 +261,12 @@ func (pq *ProductsQuery) Clone() *ProductsQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		ShopID int64 `json:"shop_id,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Products.Query().
-//		GroupBy(products.FieldName).
+//		GroupBy(products.FieldShopID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (pq *ProductsQuery) GroupBy(field string, fields ...string) *ProductsGroupBy {
@@ -284,11 +284,11 @@ func (pq *ProductsQuery) GroupBy(field string, fields ...string) *ProductsGroupB
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		ShopID int64 `json:"shop_id,omitempty"`
 //	}
 //
 //	client.Products.Query().
-//		Select(products.FieldName).
+//		Select(products.FieldShopID).
 //		Scan(ctx, &v)
 func (pq *ProductsQuery) Select(fields ...string) *ProductsSelect {
 	pq.ctx.Fields = append(pq.ctx.Fields, fields...)

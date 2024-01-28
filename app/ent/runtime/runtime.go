@@ -117,15 +117,15 @@ func init() {
 	productsFields := schema.Products{}.Fields()
 	_ = productsFields
 	// productsDescCreatedAt is the schema descriptor for created_at field.
-	productsDescCreatedAt := productsFields[2].Descriptor()
+	productsDescCreatedAt := productsFields[5].Descriptor()
 	// products.DefaultCreatedAt holds the default value on creation for the created_at field.
 	products.DefaultCreatedAt = productsDescCreatedAt.Default.(time.Time)
 	// productsDescUpdatedAt is the schema descriptor for updated_at field.
-	productsDescUpdatedAt := productsFields[3].Descriptor()
+	productsDescUpdatedAt := productsFields[6].Descriptor()
 	// products.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	products.DefaultUpdatedAt = productsDescUpdatedAt.Default.(time.Time)
 	// productsDescDeletedAt is the schema descriptor for deleted_at field.
-	productsDescDeletedAt := productsFields[4].Descriptor()
+	productsDescDeletedAt := productsFields[7].Descriptor()
 	// products.DefaultDeletedAt holds the default value on creation for the deleted_at field.
 	products.DefaultDeletedAt = productsDescDeletedAt.Default.(time.Time)
 	reviewsFields := schema.Reviews{}.Fields()

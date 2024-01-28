@@ -17,6 +17,12 @@ type Products struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// ShopID holds the value of the "shop_id" field.
+	ShopID int64 `json:"shop_id,omitempty"`
+	// ProductCategoryID holds the value of the "product_category_id" field.
+	ProductCategoryID int64 `json:"product_category_id,omitempty"`
+	// ProductBrandID holds the value of the "product_brand_id" field.
+	ProductBrandID int64 `json:"product_brand_id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Description holds the value of the "description" field.
@@ -35,7 +41,7 @@ func (*Products) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case products.FieldID:
+		case products.FieldID, products.FieldShopID, products.FieldProductCategoryID, products.FieldProductBrandID:
 			values[i] = new(sql.NullInt64)
 		case products.FieldName, products.FieldDescription:
 			values[i] = new(sql.NullString)
@@ -62,6 +68,24 @@ func (pr *Products) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			pr.ID = int(value.Int64)
+		case products.FieldShopID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field shop_id", values[i])
+			} else if value.Valid {
+				pr.ShopID = value.Int64
+			}
+		case products.FieldProductCategoryID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field product_category_id", values[i])
+			} else if value.Valid {
+				pr.ProductCategoryID = value.Int64
+			}
+		case products.FieldProductBrandID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field product_brand_id", values[i])
+			} else if value.Valid {
+				pr.ProductBrandID = value.Int64
+			}
 		case products.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
@@ -129,6 +153,15 @@ func (pr *Products) String() string {
 	var builder strings.Builder
 	builder.WriteString("Products(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", pr.ID))
+	builder.WriteString("shop_id=")
+	builder.WriteString(fmt.Sprintf("%v", pr.ShopID))
+	builder.WriteString(", ")
+	builder.WriteString("product_category_id=")
+	builder.WriteString(fmt.Sprintf("%v", pr.ProductCategoryID))
+	builder.WriteString(", ")
+	builder.WriteString("product_brand_id=")
+	builder.WriteString(fmt.Sprintf("%v", pr.ProductBrandID))
+	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(pr.Name)
 	builder.WriteString(", ")

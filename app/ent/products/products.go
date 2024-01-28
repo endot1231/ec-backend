@@ -13,6 +13,12 @@ const (
 	Label = "products"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldShopID holds the string denoting the shop_id field in the database.
+	FieldShopID = "shop_id"
+	// FieldProductCategoryID holds the string denoting the product_category_id field in the database.
+	FieldProductCategoryID = "product_category_id"
+	// FieldProductBrandID holds the string denoting the product_brand_id field in the database.
+	FieldProductBrandID = "product_brand_id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldDescription holds the string denoting the description field in the database.
@@ -30,6 +36,9 @@ const (
 // Columns holds all SQL columns for products fields.
 var Columns = []string{
 	FieldID,
+	FieldShopID,
+	FieldProductCategoryID,
+	FieldProductBrandID,
 	FieldName,
 	FieldDescription,
 	FieldCreatedAt,
@@ -62,6 +71,21 @@ type OrderOption func(*sql.Selector)
 // ByID orders the results by the id field.
 func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
+}
+
+// ByShopID orders the results by the shop_id field.
+func ByShopID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldShopID, opts...).ToFunc()
+}
+
+// ByProductCategoryID orders the results by the product_category_id field.
+func ByProductCategoryID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProductCategoryID, opts...).ToFunc()
+}
+
+// ByProductBrandID orders the results by the product_brand_id field.
+func ByProductBrandID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProductBrandID, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
